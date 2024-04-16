@@ -24,13 +24,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
 # local env files
 .env*.local
+.env
+
 
 # vercel
 .vercel
 
 # typescript
-*.tsbuildinfo
+*.tsbuildinf
 next-env.d.ts

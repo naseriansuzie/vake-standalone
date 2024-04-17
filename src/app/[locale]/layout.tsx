@@ -1,18 +1,21 @@
 'use client';
 
+import { useLocale } from 'next-intl';
 import { ThemeProvider } from 'styled-components';
 
-import GlobalStyle from '@/src/styles/globalStyle';
-import StyledComponentsRegistry from '@/src/styles/Registry';
-import theme from '@/src/styles/theme';
+import GlobalStyle from '@/styles/globalStyle';
+import StyledComponentsRegistry from '@/styles/Registry';
+import theme from '@/styles/theme';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = useLocale();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />

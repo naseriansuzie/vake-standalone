@@ -2,9 +2,9 @@
 
 import { ThemeProvider } from 'styled-components';
 
-import GlobalStyle from '@/styles/globalStyle';
-import StyledComponentsRegistry from '@/styles/Registry';
-import theme from '@/styles/theme';
+import GlobalStyle from '@/src/styles/globalStyle';
+import StyledComponentsRegistry from '@/src/styles/Registry';
+import theme from '@/src/styles/theme';
 
 export default function RootLayout({
   children,

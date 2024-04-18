@@ -1,11 +1,6 @@
-'use client';
+import { NextIntlClientProvider, useLocale, useMessages } from 'next-intl';
 
-import { useLocale } from 'next-intl';
-import { ThemeProvider } from 'styled-components';
-
-import GlobalStyle from '@/styles/globalStyle';
-import StyledComponentsRegistry from '@/styles/Registry';
-import theme from '@/styles/theme';
+import Providers from '@/app/providers';
 
 export default function RootLayout({
   children,
@@ -13,14 +8,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = useLocale();
+  const messages = useMessages();
 
   return (
     <html lang={locale}>
       <body>
-        <StyledComponentsRegistry>
-          <GlobalStyle />
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </StyledComponentsRegistry>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

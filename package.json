@@ -33,6 +33,7 @@
     ]
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.29.2",
     "next": "14.1.4",
     "next-intl": "^3.11.1",
     "react": "^18",
@@ -43,6 +44,7 @@
   "devDependencies": {
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "@swc/plugin-styled-components": "^1.5.122",
+    "@tanstack/react-query-devtools": "^5.29.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20",
     "@types/react": "^18",

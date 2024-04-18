@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
 
 import Information from '@/components/shares/Information';
 
@@ -9,11 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Shares() {
-  const messages = useMessages();
-
-  return (
-    <NextIntlClientProvider messages={messages}>
-      <Information />
-    </NextIntlClientProvider>
-  );
+  return <Information />;
 }

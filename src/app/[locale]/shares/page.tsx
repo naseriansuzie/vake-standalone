@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { getCommunityShares } from '@/api/shares';
+
 import Information from '@/components/shares/Information';
 
 export const metadata: Metadata = {
@@ -10,13 +12,17 @@ export const metadata: Metadata = {
 };
 
 export default async function Shares() {
+  const headerList = headers();
+  const communityId = new URLSearchParams(headerList.get('search') ?? {}).get('community_id');
+
   const queryClient = new QueryClient();
 
-  // FIXME: dynamic key 처리
-  await queryClient.prefetchQuery({
-    queryKey: ['G0IZUDWCL'],
-    queryFn: async () => getCommunityShares('G0IZUDWCL'),
-  });
+  if (communityId) {
+    await queryClient.prefetchQuery({
+      queryKey: [communityId],
+      queryFn: async () => getCommunityShares(communityId),
+    });
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

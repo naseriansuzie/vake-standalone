@@ -1,31 +1,37 @@
 'use client';
 
-// import { redirect } from 'next/navigation';
-// import { useQuery } from '@tanstack/react-query';
-import {
-  // useLocale,
-  useTranslations,
-} from 'next-intl';
+import { redirect, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 
-// import { getCommunityShares } from '@/api/shares';
+import { getCommunityShares } from '@/api/shares';
 
 const ShareInformation = () => {
   const t = useTranslations('Shares');
-  // TODO: dynamic key 처리 후 redirect 처리 주석 해제
-  // const locale = useLocale();
+  const locale = useLocale();
 
-  // const { data } = useQuery({
-  //   queryKey: ['G0IZUDWCL'],
-  //   queryFn: async () => getCommunityShares('G0IZUDWCL'),
-  //   retry: 0,
-  // });
+  const searchParams = useSearchParams();
+  const communityId = searchParams.get('community_id');
 
-  // if (data && data.locale !== locale) {
-  //   redirect(`/${data.locale}/shares`);
-  // }
+  const { data } = useQuery({
+    queryKey: [communityId],
+    queryFn: async () => getCommunityShares(communityId || ''),
+    retry: 0,
+    enabled: !!communityId,
+  });
 
-  return <StyledMain>{t('invitation_description', { moim_name: 'Vake' })}</StyledMain>;
+  if (data && data.locale !== locale) {
+    redirect(`/${data.locale}/shares${communityId ? `?community_id=${communityId}` : ''}`);
+  }
+
+  return (
+    <StyledMain>
+      {t('invitation_description', {
+        moim_name: data?.name || (locale !== 'ko' ? 'Action' : '액션'),
+      })}
+    </StyledMain>
+  );
 };
 
 const StyledMain = styled.main`

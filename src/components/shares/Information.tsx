@@ -12,7 +12,7 @@ const ShareInformation = () => {
   const locale = useLocale();
 
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('community_id');
+  const communityId = searchParams.get('id');
 
   const { data } = useQuery({
     queryKey: [communityId],
@@ -22,7 +22,7 @@ const ShareInformation = () => {
   });
 
   if (data && data.locale !== locale) {
-    redirect(`/${data.locale}/shares${communityId ? `?community_id=${communityId}` : ''}`);
+    redirect(`/${data.locale}/shares${communityId ? `?id=${communityId}` : ''}`);
   }
 
   return (

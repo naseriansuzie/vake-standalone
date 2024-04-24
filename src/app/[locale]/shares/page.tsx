@@ -18,7 +18,7 @@ export async function generateMetadata({
 }: {
   searchParams: Record<string, string>;
 }): Promise<Metadata> {
-  const communityId = searchParams?.community_id;
+  const communityId = searchParams?.id;
 
   try {
     if (communityId) {
@@ -64,7 +64,7 @@ export async function generateMetadata({
 }
 
 export default async function Shares({ searchParams }: { searchParams: Record<string, string> }) {
-  const communityId = searchParams?.community_id;
+  const communityId = searchParams?.id;
 
   const queryClient = new QueryClient();
 

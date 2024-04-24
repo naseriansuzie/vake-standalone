@@ -5,7 +5,7 @@ export type Icon = {
   };
 };
 
-type FaviconItem = {
+export type FaviconItem = {
   size: number | null;
   url: string | null;
 };
@@ -22,4 +22,5 @@ export type GetCommunityShareInformation = {
   icon: Icon | null;
   favicon: Favicon | null;
   locale: string | null;
+  banner: string;
 };

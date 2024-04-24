@@ -1,4 +1,4 @@
-export type Icon = {
+export type DataSource = {
   type: 'text' | 'image';
   data: {
     url: string;
@@ -19,8 +19,8 @@ export type GetCommunityShareInformation = {
   id: string;
   name: string;
   url: string | null;
-  icon: Icon | null;
+  icon: DataSource | null;
   favicon: Favicon | null;
+  banner: DataSource;
   locale: string | null;
-  banner: string;
 };

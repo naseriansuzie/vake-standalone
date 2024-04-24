@@ -45,7 +45,7 @@ export async function generateMetadata({
           description: t('head_description', {
             moim_name: name,
           }),
-          images: banner,
+          images: banner?.data.url,
         },
         icons: {
           icon: (favicon?.android?.map((icon) => parseFaviconItem(icon)) || []).concat(

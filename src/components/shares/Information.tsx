@@ -1,11 +1,14 @@
 'use client';
 
+import Image from 'next/image';
 import { redirect, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 
 import { getCommunityShares } from '@/api/shares';
+
+import MessageIcon from '@/assets/share_icon.png';
 
 const ShareInformation = () => {
   const t = useTranslations('Shares');
@@ -26,16 +29,78 @@ const ShareInformation = () => {
   }
 
   return (
-    <StyledMain>
-      {t('invitation_description', {
-        moim_name: data?.name || (locale !== 'ko' ? 'Action' : '액션'),
-      })}
-    </StyledMain>
+    <StyledInformation>
+      <StyledIcon src={MessageIcon.src} alt="share icon" width={50} height={50} />
+      <StyledMsgContainer>
+        <StyledMainMsg>
+          {t('invitation_description', {
+            moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
+          })}
+        </StyledMainMsg>
+        <StyledSuggestionMsg>{t('invitation_suggestion')}</StyledSuggestionMsg>
+      </StyledMsgContainer>
+      <StyledBanner
+        // FIXME: 이미지 주소 access 확인 후 replace 제거
+        src={(data?.banner?.data.url || '').replace(
+          'https://ca.edge.vg/',
+          'https://ca.group-edge.net/',
+        )}
+        alt={`${data?.name} banner`}
+        sizes="317px"
+        width={317}
+        height={105}
+        quality={10}
+        priority
+      />
+    </StyledInformation>
   );
 };
 
-const StyledMain = styled.main`
-  color: purple;
+const StyledInformation = styled.article`
+  position: relative;
+  background: #fff;
+  text-align: center;
+  border-radius: 23px;
+  padding: 36px 18px 18px;
+  margin: 0 20px;
+`;
+
+const StyledIcon = styled(Image)`
+  position: absolute;
+  top: -25px;
+  left: calc(50% - 25px);
+`;
+
+const StyledMsgContainer = styled.div`
+  padding: 0 13px;
+`;
+
+const StyledMainMsg = styled.h1`
+  color: #4a64ff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 24px;
+  word-break: keep-all;
+`;
+
+const StyledSuggestionMsg = styled.p`
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 24px;
+  word-break: keep-all;
+  margin: 0 45px 24px;
+
+  @media only screen and (min-width: 768px) {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+`;
+
+const StyledBanner = styled(Image)`
+  aspect-ratio: 317 / 105;
+  border-radius: 10px;
+  object-fit: cover;
 `;
 
 export default ShareInformation;

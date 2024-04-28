@@ -18,9 +18,7 @@ const ClientSharesLayout = ({ children }: React.PropsWithChildren) => {
     }
 
     return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('resize', setVhVariable);
-      }
+      window.removeEventListener('resize', setVhVariable);
     };
   }, []);
 

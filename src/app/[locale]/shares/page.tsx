@@ -4,6 +4,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 
 import { getCommunityShares } from '@/api/shares';
 
+import ActionButtons from '@/components/shares/ActionButtons';
 import Information from '@/components/shares/Information';
 
 import type { FaviconItem } from '@/types/shares';
@@ -78,6 +79,7 @@ export default async function Shares({ searchParams }: { searchParams: Record<st
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Information />
+      <ActionButtons />
     </HydrationBoundary>
   );
 }

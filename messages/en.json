@@ -4,6 +4,10 @@
     "head_description": "Invite you to {moim_name} action",
     "invitation_description": "Kindly Invite People to {moim_name}",
     "invitation_suggestion": "Let them know what roles they can participate in.",
+    "invite_by_kakao": "Invite by Kakao",
+    "by_facebook": "Facebook",
+    "by_message": "Message",
+    "by_copy_link": "Copy Link",
     "placeholder": "Please write your invitation."
   }
 }

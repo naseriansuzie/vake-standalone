@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "stylelint": "stylelint \"./app/**/*.{js,ts,tsx}\"",
-    "stylelint-fix": "stylelint \"./app/**/*.{js,ts,tsx}\" --fix",
+    "stylelint": "stylelint \"./src/components/**/*.{js,ts,tsx}\" \"./src/app/**/*.{js,ts,tsx}\"",
+    "stylelint-fix": "stylelint \"./src/components/**/*.{js,ts,tsx}\" \"./src/app/**/*.{js,ts,tsx}\" --fix",
     "type-check": "tsc"
   },
   "husky": {

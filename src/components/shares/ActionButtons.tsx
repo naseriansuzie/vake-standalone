@@ -1,8 +1,15 @@
 'use client';
 
 import Image, { StaticImageData } from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useQuery } from '@tanstack/react-query';
+
 import styled from 'styled-components';
+
+import { getCommunityShares } from '@/api/shares';
+
+import detectMobileDevice from '@/helpers/detectMobileDevice';
 
 import FacebookIcon from '@/assets/facebook.png';
 import KakaoIcon from '@/assets/kakao.png';
@@ -11,6 +18,18 @@ import LinkIcon from '@/assets/link.png';
 
 const ActionButtons = () => {
   const t = useTranslations('Shares');
+  const locale = useLocale();
+
+  const { push } = useRouter();
+  const searchParams = useSearchParams();
+  const communityId = searchParams.get('id');
+
+  const { data } = useQuery({
+    queryKey: [communityId],
+    queryFn: async () => getCommunityShares(communityId || ''),
+    retry: 0,
+    enabled: !!communityId,
+  });
 
   const buttons: {
     icon: StaticImageData;
@@ -20,12 +39,27 @@ const ActionButtons = () => {
     {
       icon: FacebookIcon,
       title: t('by_facebook'),
-      onClick: () => {},
+      onClick: () => {
+        // TODO: Facebook share interface 연결
+      },
     },
     {
       icon: MessageIcon,
       title: t('by_message'),
-      onClick: () => {},
+      onClick: () => {
+        const shareMessage = `${t('sms_share_message', {
+          moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
+        })} ${data?.url}`;
+
+        if (detectMobileDevice() === 'ios') {
+          push(`sms:&body=${shareMessage}`);
+          return;
+        }
+        if (detectMobileDevice() === 'android') {
+          push(`sms:?body=${shareMessage}`);
+          return;
+        }
+      },
     },
     {
       icon: LinkIcon,
@@ -34,7 +68,9 @@ const ActionButtons = () => {
     },
   ];
 
-  const handleClickKakao = () => {};
+  const handleClickKakao = () => {
+    // TODO: Kakao share interface 연결
+  };
 
   return (
     <StyledActionButtonContainer>
@@ -44,7 +80,7 @@ const ActionButtons = () => {
       </StyledKakaoButton>
       <StyledButtons>
         {buttons.map((button) => (
-          <StyledButton key={button.title}>
+          <StyledButton key={button.title} onClick={button.onClick}>
             <StyledButtonIcon src={button.icon.src} alt={button.title} width={50} height={50} />
             <p>{button.title}</p>
           </StyledButton>

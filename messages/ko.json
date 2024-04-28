@@ -8,6 +8,7 @@
     "by_facebook": "페이스북",
     "by_message": "문자",
     "by_copy_link": "링크복사",
+    "sms_share_message": "[베이크] {moim_name} 액션에 초대합니다!",
     "placeholder": "초대 메시지를 작성해주세요."
   }
 }

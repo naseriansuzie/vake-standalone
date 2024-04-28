@@ -8,6 +8,7 @@
     "by_facebook": "Facebook",
     "by_message": "Message",
     "by_copy_link": "Copy Link",
+    "sms_share_message": "[VAKE] I invite you to the {moim_name} action!",
     "placeholder": "Please write your invitation."
   }
 }

@@ -2,7 +2,8 @@
   "Shares": {
     "head_title": "{moim_name} 액션 초대하기",
     "head_description": "{moim_name} 액션에 초대합니다.",
-    "invitation_description": "{moim_name}에 초대합니다.",
+    "invitation_description": "{moim_name} 액션에 친구를 초대해 보세요.",
+    "invitation_suggestion": "어떤 역할로 참여할 수 있을지 함께 제안해보는 것도 좋겠죠?",
     "placeholder": "초대 메시지를 작성해주세요."
   }
 }

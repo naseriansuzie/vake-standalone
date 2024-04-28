@@ -2,7 +2,8 @@
   "Shares": {
     "head_title": "Invite {moim_name} action",
     "head_description": "Invite you to {moim_name} action",
-    "invitation_description": "Invite you to {moim_name}",
+    "invitation_description": "Kindly Invite People to {moim_name}",
+    "invitation_suggestion": "Let them know what roles they can participate in.",
     "placeholder": "Please write your invitation."
   }
 }

@@ -1,5 +1,7 @@
-const RootLayout = ({ children }: React.PropsWithChildren) => {
-  return <div>{children}</div>;
+import ClientSharesLayout from './layout.client';
+
+const SharesLayout = ({ children }: React.PropsWithChildren) => {
+  return <ClientSharesLayout>{children}</ClientSharesLayout>;
 };
 
-export default RootLayout;
+export default SharesLayout;

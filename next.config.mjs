@@ -28,6 +28,16 @@ const nextConfig = {
       KAKAO: kakaoKeys,
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        // FIXME: 이미지 주소 access 확인 후 replace 제거
+        hostname: 'ca.group-edge.net',
+        pathname: '/i/**/**',
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

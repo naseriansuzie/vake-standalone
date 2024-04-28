@@ -10,11 +10,14 @@ import styled from 'styled-components';
 import { getCommunityShares } from '@/api/shares';
 
 import detectMobileDevice from '@/helpers/detectMobileDevice';
+import useCopyToClipboard from '@/utils/useCopyClipboard';
 
 import FacebookIcon from '@/assets/facebook.png';
 import KakaoIcon from '@/assets/kakao.png';
 import MessageIcon from '@/assets/message.png';
 import LinkIcon from '@/assets/link.png';
+
+const VAKE_URL = 'https://vake.io' as const;
 
 const ActionButtons = () => {
   const t = useTranslations('Shares');
@@ -23,6 +26,8 @@ const ActionButtons = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const communityId = searchParams.get('id');
+
+  const [state, copyToClipboard] = useCopyToClipboard();
 
   const { data } = useQuery({
     queryKey: [communityId],
@@ -34,22 +39,22 @@ const ActionButtons = () => {
   const buttons: {
     icon: StaticImageData;
     title: string;
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    handleClickButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
   }[] = [
     {
       icon: FacebookIcon,
       title: t('by_facebook'),
-      onClick: () => {
+      handleClickButton: () => {
         // TODO: Facebook share interface 연결
       },
     },
     {
       icon: MessageIcon,
       title: t('by_message'),
-      onClick: () => {
+      handleClickButton: () => {
         const shareMessage = `${t('sms_share_message', {
           moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
-        })} ${data?.url}`;
+        })} ${data?.url || VAKE_URL}`;
 
         if (detectMobileDevice() === 'ios') {
           push(`sms:&body=${shareMessage}`);
@@ -64,7 +69,9 @@ const ActionButtons = () => {
     {
       icon: LinkIcon,
       title: t('by_copy_link'),
-      onClick: () => {},
+      handleClickButton: () => {
+        copyToClipboard(data?.url || VAKE_URL);
+      },
     },
   ];
 
@@ -80,7 +87,7 @@ const ActionButtons = () => {
       </StyledKakaoButton>
       <StyledButtons>
         {buttons.map((button) => (
-          <StyledButton key={button.title} onClick={button.onClick}>
+          <StyledButton key={button.title} onClick={button.handleClickButton}>
             <StyledButtonIcon src={button.icon.src} alt={button.title} width={50} height={50} />
             <p>{button.title}</p>
           </StyledButton>

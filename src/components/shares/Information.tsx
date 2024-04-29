@@ -40,16 +40,12 @@ const ShareInformation = () => {
         <StyledSuggestionMsg>{t('invitation_suggestion')}</StyledSuggestionMsg>
       </StyledMsgContainer>
       <StyledBanner
-        // FIXME: 이미지 주소 access 확인 후 replace 제거
-        src={(data?.banner?.data.url || '').replace(
-          'https://ca.edge.vg/',
-          'https://ca.group-edge.net/',
-        )}
+        src={data?.banner?.data.url || ''}
         alt={`${data?.name} banner`}
         sizes="317px"
         width={317}
         height={105}
-        quality={10}
+        quality={30}
         priority
       />
     </StyledInformation>

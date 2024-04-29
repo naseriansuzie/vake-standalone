@@ -32,8 +32,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        // FIXME: 이미지 주소 access 확인 후 replace 제거
-        hostname: 'ca.group-edge.net',
+        hostname: 'ca.edge.vg',
         pathname: '/i/**/**',
       },
     ],

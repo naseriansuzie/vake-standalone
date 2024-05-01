@@ -181,16 +181,22 @@ const StyledBannerArea = styled.div`
   max-width: 500px;
   padding: 14px 5px 5.5px;
   margin: 30px auto 14.5px;
+
+  @media screen and (min-width: 768px) {
+    padding-bottom: 14px;
+  }
 `;
 
 const StyledKakaoButton = styled.button<{ $isInvalid: boolean }>`
   width: 100%;
+  max-width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #ffeb3b;
   border-radius: 30px;
   padding: 5px 0;
+  margin: 0 auto;
 
   ${({ $isInvalid }) =>
     $isInvalid &&

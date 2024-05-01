@@ -1,22 +1,19 @@
-import { NextIntlClientProvider, useLocale, useMessages } from 'next-intl';
-
 import { noto_sans_kr } from '@/app/fonts';
 import Providers from '@/app/providers';
 
+import type { LocaleTypes } from '@/utils/localization/settings';
+
 export default function RootLayout({
+  params,
   children,
 }: Readonly<{
+  params: { locale: LocaleTypes };
   children: React.ReactNode;
 }>) {
-  const locale = useLocale();
-  const messages = useMessages();
-
   return (
-    <html lang={locale} className={noto_sans_kr.className}>
+    <html lang={params.locale} className={noto_sans_kr.className}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <Providers>{children}</Providers>
-        </NextIntlClientProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

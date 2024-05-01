@@ -1,18 +1,21 @@
 'use client';
 
 import Image from 'next/image';
-import { redirect, useSearchParams } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { redirect, useParams, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 
 import { getCommunityShares } from '@/api/shares';
 
+import { useTranslation } from '@/utils/localization/client';
+
 import MessageIcon from '@/assets/share_icon.png';
 
+import type { LocaleTypes } from '@/utils/localization/settings';
+
 const ShareInformation = () => {
-  const t = useTranslations('Shares');
-  const locale = useLocale();
+  const locale = useParams()?.locale as LocaleTypes;
+  const { t } = useTranslation(locale, 'shares');
 
   const searchParams = useSearchParams();
   const communityId = searchParams.get('id');

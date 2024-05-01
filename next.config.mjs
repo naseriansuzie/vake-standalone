@@ -1,7 +1,3 @@
-import createNextIntlPlugin from 'next-intl/plugin';
-
-const withNextIntl = createNextIntlPlugin();
-
 // TODO: 서버 타입에 따라 배포 셋팅
 // const serverType = process.env.NEXT_PUBLIC_SERVER_TYPE;
 
@@ -39,4 +35,4 @@ const nextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;

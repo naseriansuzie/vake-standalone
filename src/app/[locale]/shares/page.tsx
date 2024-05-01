@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { getCommunityShares } from '@/api/shares';
 
+import { createTranslation } from '@/utils/localization/server';
+
 import ActionButtons from '@/components/shares/ActionButtons';
 import Information from '@/components/shares/Information';
 
+import type { LocaleTypes } from '@/utils/localization/settings';
 import type { FaviconItem } from '@/types/shares';
 
 const defaultMetadata: Metadata = {
@@ -15,17 +17,18 @@ const defaultMetadata: Metadata = {
 };
 
 export async function generateMetadata({
+  params: { locale },
   searchParams,
 }: {
+  params: { locale: LocaleTypes };
   searchParams: Record<string, string>;
 }): Promise<Metadata> {
   const communityId = searchParams?.id;
 
   try {
     if (communityId) {
-      const { name, locale, favicon, banner } = await getCommunityShares(communityId);
-
-      const t = await getTranslations({ locale, namespace: 'Shares' });
+      const { name, locale: pickedLocale, favicon, banner } = await getCommunityShares(communityId);
+      const { t } = await createTranslation((pickedLocale as LocaleTypes) || locale, 'shares');
 
       const parseFaviconItem = (item: FaviconItem | null) => {
         return {

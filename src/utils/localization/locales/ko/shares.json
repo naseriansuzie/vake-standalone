@@ -8,5 +8,7 @@
   "by_message": "문자",
   "by_copy_link": "링크복사",
   "sms_share_message": "[베이크] {{moim_name}} 액션에 초대합니다!",
-  "placeholder": "초대 메시지를 작성해주세요."
+  "placeholder": "초대 메시지를 작성해주세요.",
+  "link_copy_success": "초대링크 복사 완료",
+  "link_copy_success_description": "원하는 곳에 링크를 공유하세요!"
 }

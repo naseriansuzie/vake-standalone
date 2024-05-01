@@ -18,7 +18,7 @@ import KakaoIcon from '@/assets/kakao.png';
 import MessageIcon from '@/assets/message.png';
 import LinkIcon from '@/assets/link.png';
 
-import ShareCompleted from '@/components/shares/ShareCompleted';
+import ShareCompletedDialog from '@/components/shares/ShareCompletedDialog';
 
 const VAKE_URL = 'https://vake.io' as const;
 
@@ -33,7 +33,6 @@ const ActionButtons = () => {
   const [, copyToClipboard] = useCopyToClipboard();
 
   const [openShareCompleted, setOpenShareCompleted] = useState(false);
-
   const { data } = useQuery({
     queryKey: [communityId],
     queryFn: async () => getCommunityShares(communityId || ''),
@@ -108,7 +107,7 @@ const ActionButtons = () => {
         ))}
       </StyledButtons>
       {openShareCompleted && (
-        <ShareCompleted open={openShareCompleted} onClose={handleCloseShareCompleted} />
+        <ShareCompletedDialog open={openShareCompleted} onClose={handleCloseShareCompleted} />
       )}
     </StyledActionButtonContainer>
   );

@@ -5,6 +5,7 @@ import { initReactI18next, useTranslation as useTransAlias } from 'react-i18next
 import i18next, { type i18n } from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
+import { useParams } from 'next/navigation';
 
 import { type LocaleTypes, getOptions, locales } from './settings';
 
@@ -28,7 +29,7 @@ i18next
     preload: runsOnServerSide ? locales : [],
   });
 
-export function useTranslation(lng: LocaleTypes, ns: string) {
+export function useTranslationByLng(lng: LocaleTypes, ns: string) {
   const translator = useTransAlias(ns);
   const { i18n } = translator;
 
@@ -50,4 +51,9 @@ function useCustomTranslationImplementation(i18n: i18n, lng: LocaleTypes) {
     if (!lng) return; // || i18n.resolvedLanguage === lng) return;
     i18n.changeLanguage(lng);
   }, [lng, i18n]);
+}
+
+export function useTranslation(ns: string) {
+  const { locale } = useParams();
+  return useTranslationByLng(locale as LocaleTypes, ns);
 }

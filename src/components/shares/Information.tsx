@@ -15,7 +15,7 @@ import type { LocaleTypes } from '@/utils/localization/settings';
 
 const ShareInformation = () => {
   const locale = useParams()?.locale as LocaleTypes;
-  const { t } = useTranslation(locale, 'shares');
+  const { t } = useTranslation('shares');
 
   const searchParams = useSearchParams();
   const communityId = searchParams.get('id');

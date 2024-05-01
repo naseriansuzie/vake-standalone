@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { StaticImageData } from 'next/image';
-import { useRouter, useParams, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 import styled from 'styled-components';
@@ -17,13 +17,10 @@ import KakaoIcon from '@/assets/kakao.png';
 import MessageIcon from '@/assets/message.png';
 import LinkIcon from '@/assets/link.png';
 
-import type { LocaleTypes } from '@/utils/localization/settings';
-
 const VAKE_URL = 'https://vake.io' as const;
 
 const ActionButtons = () => {
-  const locale = useParams()?.locale as LocaleTypes;
-  const { t } = useTranslation(locale, 'shares');
+  const { t } = useTranslation('shares');
 
   const { push } = useRouter();
   const searchParams = useSearchParams();

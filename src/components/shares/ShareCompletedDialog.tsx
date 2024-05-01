@@ -47,6 +47,7 @@ const ShareCompletedDialog = ({ open, onClose }: Props) => {
 export default ShareCompletedDialog;
 
 const StyledDialogContent = styled(DialogContainer)`
+  max-width: 500px;
   padding: 18px;
 `;
 

@@ -131,11 +131,11 @@ const StyledKakaoButton = styled.button`
   padding: 5px 0;
 `;
 
-const StyledKakaoIcon = styled(Image)`
+export const StyledKakaoIcon = styled(Image)`
   padding: 12.1px 9.37px 9.26px;
 `;
 
-const StyledKakaoMsg = styled.p`
+export const StyledKakaoMsg = styled.p`
   color: #3e2723;
   text-align: center;
   font-size: 18px;

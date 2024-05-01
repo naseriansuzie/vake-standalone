@@ -10,5 +10,10 @@
   "sms_share_message": "[VAKE] I invite you to the {{moim_name}} action!",
   "placeholder": "Please write your invitation.",
   "link_copy_success": "Link copied successfully",
-  "link_copy_success_description": "Share the link whenever you want!"
+  "link_copy_success_description": "Share the link whenever you want!",
+  "to_invite_action": "I invite you here!",
+  "default_share_message": "Would you join this action?",
+  "share_message_placeholder": "Write an invitation message!",
+  "word_count": "",
+  "send_by_kakao": "Send by Kakao"
 }

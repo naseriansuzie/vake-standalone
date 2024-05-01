@@ -90,7 +90,7 @@ const StyledSuggestionMsg = styled.p`
   }
 `;
 
-const StyledBanner = styled(Image)`
+export const StyledBanner = styled(Image)`
   aspect-ratio: 317 / 105;
   border-radius: 10px;
   object-fit: cover;

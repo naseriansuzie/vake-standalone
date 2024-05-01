@@ -10,5 +10,10 @@
   "sms_share_message": "[베이크] {{moim_name}} 액션에 초대합니다!",
   "placeholder": "초대 메시지를 작성해주세요.",
   "link_copy_success": "초대링크 복사 완료",
-  "link_copy_success_description": "원하는 곳에 링크를 공유하세요!"
+  "link_copy_success_description": "원하는 곳에 링크를 공유하세요!",
+  "to_invite_action": "액션에 초대합니다!",
+  "default_share_message": "나랑 이 액션 같이 해보지 않을래?",
+  "share_message_placeholder": "초대 메시지를 작성해 보세요!",
+  "word_count": "자",
+  "send_by_kakao": "카카오톡으로 보내기"
 }

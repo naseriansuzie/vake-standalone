@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -17,6 +18,8 @@ import KakaoIcon from '@/assets/kakao.png';
 import MessageIcon from '@/assets/message.png';
 import LinkIcon from '@/assets/link.png';
 
+import ShareCompleted from '@/components/shares/ShareCompleted';
+
 const VAKE_URL = 'https://vake.io' as const;
 
 const ActionButtons = () => {
@@ -27,7 +30,9 @@ const ActionButtons = () => {
   const searchParams = useSearchParams();
   const communityId = searchParams.get('id');
 
-  const [state, copyToClipboard] = useCopyToClipboard();
+  const [, copyToClipboard] = useCopyToClipboard();
+
+  const [openShareCompleted, setOpenShareCompleted] = useState(false);
 
   const { data } = useQuery({
     queryKey: [communityId],
@@ -37,11 +42,13 @@ const ActionButtons = () => {
   });
 
   const buttons: {
+    type: 'facebook' | 'message' | 'link';
     icon: StaticImageData;
     title: string;
     handleClickButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
   }[] = [
     {
+      type: 'facebook',
       icon: FacebookIcon,
       title: t('by_facebook'),
       handleClickButton: () => {
@@ -49,6 +56,7 @@ const ActionButtons = () => {
       },
     },
     {
+      type: 'message',
       icon: MessageIcon,
       title: t('by_message'),
       handleClickButton: () => {
@@ -67,16 +75,22 @@ const ActionButtons = () => {
       },
     },
     {
+      type: 'link',
       icon: LinkIcon,
       title: t('by_copy_link'),
       handleClickButton: () => {
         copyToClipboard(data?.url || VAKE_URL);
+        setOpenShareCompleted(true);
       },
     },
   ];
 
   const handleClickKakao = () => {
     // TODO: Kakao share interface 연결
+  };
+
+  const handleCloseShareCompleted = () => {
+    setOpenShareCompleted(false);
   };
 
   return (
@@ -93,6 +107,9 @@ const ActionButtons = () => {
           </StyledButton>
         ))}
       </StyledButtons>
+      {openShareCompleted && (
+        <ShareCompleted open={openShareCompleted} onClose={handleCloseShareCompleted} />
+      )}
     </StyledActionButtonContainer>
   );
 };

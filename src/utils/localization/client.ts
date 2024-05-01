@@ -29,7 +29,7 @@ i18next
     preload: runsOnServerSide ? locales : [],
   });
 
-export function useTranslationByLng(lng: LocaleTypes, ns: string) {
+export function useTranslationByLng(lng: LocaleTypes, ns: string | string[]) {
   const translator = useTransAlias(ns);
   const { i18n } = translator;
 
@@ -53,7 +53,7 @@ function useCustomTranslationImplementation(i18n: i18n, lng: LocaleTypes) {
   }, [lng, i18n]);
 }
 
-export function useTranslation(ns: string) {
+export function useTranslation(ns: string | string[]) {
   const { locale } = useParams();
   return useTranslationByLng(locale as LocaleTypes, ns);
 }

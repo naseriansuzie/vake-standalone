@@ -14,17 +14,12 @@ export default async function middleware(request: NextRequest) {
   if (pathname.startsWith(`/${fallbackLng}/`) || pathname === `/${fallbackLng}`) {
     // e.g. incoming request is /ko/shares
     // The new URL is now /shares
-
-    const response = NextResponse.redirect(
+    return NextResponse.redirect(
       new URL(
         `${pathname.replace(`/${fallbackLng}`, pathname === `/${fallbackLng}` ? '/' : '')}${urlParams}`,
         request.url,
       ),
     );
-    response.headers.set('next-url', request.nextUrl.pathname);
-    response.headers.set('search', request.nextUrl.search);
-
-    return response;
   }
 
   const pathnameIsMissingLocale = locales.every(
@@ -37,15 +32,7 @@ export default async function middleware(request: NextRequest) {
 
     // e.g. incoming request is /shares
     // Tell Next.js it should pretend it's /ko/shares
-
-    const response = NextResponse.rewrite(
-      new URL(`/${fallbackLng}${pathname}${urlParams}`, request.url),
-    );
-
-    response.headers.set('next-url', request.nextUrl.pathname);
-    response.headers.set('search', request.nextUrl.search);
-
-    return response;
+    return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}${urlParams}`, request.url));
   }
 
   return NextResponse.next();
@@ -54,6 +41,6 @@ export default async function middleware(request: NextRequest) {
 export const config = {
   // Matcher ignoring `/_next/` and `/api/`
   matcher: [
-    '/((?!api|_next/static|_next/image|public/|assets|favicon.ico|robots.txt|sitemap.xml|manifest.json).*)',
+    '/((?!api|.*\\..*|_next/static|_next/image|public/|assets|favicon.ico|robots.txt|sitemap.xml|manifest.json).*)',
   ],
 };

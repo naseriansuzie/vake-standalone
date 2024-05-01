@@ -66,6 +66,8 @@ const ActionButtons = () => {
           push(`sms:?body=${shareMessage}`);
           return;
         }
+
+        push(`sms:?body=${shareMessage}`);
       },
     },
     {

@@ -93,6 +93,17 @@ const overlayShow = keyframes`
 const contentShow = keyframes`
   from {
     opacity: 0;
+    transform: translate(-50%, 0%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+`;
+
+const fullContentShow = keyframes`
+  from {
+    opacity: 0;
     transform: translate(0%, 100%) scale(0.96);
   }
   to {
@@ -118,6 +129,7 @@ const fullDialogStyle = css`
   width: 100%;
   place-items: center;
   overflow-y: auto;
+  animation: ${fullContentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
 const StyledDialogContent = styled(DialogPrimitive.Content)<{
@@ -136,7 +148,7 @@ const StyledDialogContent = styled(DialogPrimitive.Content)<{
   width: calc(100% - 35px - 35px);
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  ${(props) => props.$fullDialog && fullDialogStyle};
+  ${({ $fullDialog }) => $fullDialog && fullDialogStyle};
 
   &:focus {
     outline: none;

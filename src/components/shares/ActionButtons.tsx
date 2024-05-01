@@ -3,11 +3,9 @@
 import { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-
 import styled from 'styled-components';
 
-import { getCommunityShares } from '@/api/shares';
+import useCommunityShares from '@/queries/useCommunityShares';
 
 import detectMobileDevice from '@/helpers/detectMobileDevice';
 import { useTranslation } from '@/utils/localization/client';
@@ -19,6 +17,7 @@ import MessageIcon from '@/assets/message.png';
 import LinkIcon from '@/assets/link.png';
 
 import ShareCompletedDialog from '@/components/shares/ShareCompletedDialog';
+import KakaoShareDialog from '@/components/shares/KakaoShareDialog';
 
 const VAKE_URL = 'https://vake.io' as const;
 
@@ -30,15 +29,11 @@ const ActionButtons = () => {
   const searchParams = useSearchParams();
   const communityId = searchParams.get('id');
 
+  const { data } = useCommunityShares(communityId);
   const [, copyToClipboard] = useCopyToClipboard();
 
   const [openShareCompleted, setOpenShareCompleted] = useState(false);
-  const { data } = useQuery({
-    queryKey: [communityId],
-    queryFn: async () => getCommunityShares(communityId || ''),
-    retry: 0,
-    enabled: !!communityId,
-  });
+  const [openKakaoShare, setOpenKakaoShare] = useState(false);
 
   const buttons: {
     type: 'facebook' | 'message' | 'link';
@@ -85,7 +80,11 @@ const ActionButtons = () => {
   ];
 
   const handleClickKakao = () => {
-    // TODO: Kakao share interface 연결
+    setOpenKakaoShare(true);
+  };
+
+  const handleCloseKakaoShare = () => {
+    setOpenKakaoShare(false);
   };
 
   const handleCloseShareCompleted = () => {
@@ -106,6 +105,7 @@ const ActionButtons = () => {
           </StyledButton>
         ))}
       </StyledButtons>
+      {openKakaoShare && <KakaoShareDialog open={openKakaoShare} onClose={handleCloseKakaoShare} />}
       {openShareCompleted && (
         <ShareCompletedDialog open={openShareCompleted} onClose={handleCloseShareCompleted} />
       )}

@@ -2,10 +2,9 @@
 
 import Image from 'next/image';
 import { redirect, useParams, useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 
-import { getCommunityShares } from '@/api/shares';
+import useCommunityShares from '@/queries/useCommunityShares';
 
 import { useTranslation } from '@/utils/localization/client';
 
@@ -20,12 +19,7 @@ const ShareInformation = () => {
   const searchParams = useSearchParams();
   const communityId = searchParams.get('id');
 
-  const { data } = useQuery({
-    queryKey: [communityId],
-    queryFn: async () => getCommunityShares(communityId || ''),
-    retry: 0,
-    enabled: !!communityId,
-  });
+  const { data } = useCommunityShares(communityId);
 
   if (data && data.locale !== locale) {
     redirect(`/${data.locale}/shares${communityId ? `?id=${communityId}` : ''}`);

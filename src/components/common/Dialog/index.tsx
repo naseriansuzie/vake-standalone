@@ -91,13 +91,13 @@ const overlayShow = keyframes`
 `;
 
 const contentShow = keyframes`
-   from {
+  from {
     opacity: 0;
-    transform: translate(-50%, -48%) scale(0.96);
+    transform: translate(0%, 100%) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(0%, 0%) scale(1);
   }
 `;
 

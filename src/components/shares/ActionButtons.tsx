@@ -44,7 +44,12 @@ const ActionButtons = () => {
       icon: FacebookIcon,
       title: t('by_facebook'),
       handleClickButton: () => {
-        // TODO: Facebook share interface 연결
+        const sendUrl = data?.url || VAKE_URL;
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(sendUrl)}`,
+          'facebook',
+          'toolbar=0,status=0,width=655,height=520',
+        );
       },
     },
     {

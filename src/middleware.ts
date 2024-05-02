@@ -10,18 +10,6 @@ export default async function middleware(request: NextRequest) {
   const params = Object.fromEntries(urlSearchParams.entries());
   const urlParams = urlSearchParams ? `?${new URLSearchParams(params).toString()}` : '';
 
-  // Check if the default locale is in the pathname
-  if (pathname.startsWith(`/${fallbackLng}/`) || pathname === `/${fallbackLng}`) {
-    // e.g. incoming request is /ko/shares
-    // The new URL is now /shares
-    return NextResponse.redirect(
-      new URL(
-        `${pathname.replace(`/${fallbackLng}`, pathname === `/${fallbackLng}` ? '/' : '')}${urlParams}`,
-        request.url,
-      ),
-    );
-  }
-
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
@@ -31,8 +19,8 @@ export default async function middleware(request: NextRequest) {
     // Rewrite so Next.js understands
 
     // e.g. incoming request is /shares
-    // Tell Next.js it should pretend it's /ko/shares
-    return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}${urlParams}`, request.url));
+    // it redirects to /ko/shares
+    return NextResponse.redirect(new URL(`/${fallbackLng}${pathname}${urlParams}`, request.url));
   }
 
   return NextResponse.next();

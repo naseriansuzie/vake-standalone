@@ -15,5 +15,6 @@
   "default_share_message": "Would you join this action?",
   "share_message_placeholder": "Write an invitation message!",
   "word_count": "",
-  "send_by_kakao": "Send by Kakao"
+  "send_by_kakao": "Send by Kakao",
+  "go_to_action": "Go to action"
 }

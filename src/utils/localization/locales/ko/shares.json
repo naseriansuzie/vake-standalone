@@ -15,5 +15,6 @@
   "default_share_message": "나랑 이 액션 같이 해보지 않을래?",
   "share_message_placeholder": "초대 메시지를 작성해 보세요!",
   "word_count": "자",
-  "send_by_kakao": "카카오톡으로 보내기"
+  "send_by_kakao": "카카오톡으로 보내기",
+  "go_to_action": "액션 보러 가기"
 }

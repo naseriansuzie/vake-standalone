@@ -17,9 +17,7 @@ import MessageIcon from '@/assets/message.png';
 import LinkIcon from '@/assets/link.png';
 
 import ShareCompletedDialog from '@/components/shares/ShareCompletedDialog';
-import KakaoShareDialog from '@/components/shares/KakaoShareDialog';
-
-const VAKE_URL = 'https://vake.io' as const;
+import KakaoShareDialog, { VAKE_URL } from '@/components/shares/KakaoShareDialog';
 
 const ActionButtons = () => {
   const { locale } = useParams();

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import styled, { css } from 'styled-components';
 
 import useCommunityShares from '@/queries/useCommunityShares';
@@ -14,11 +14,7 @@ import InvalidKakaoIcon from '@/assets/kakao_invalid.png';
 import SmallVakeLogo from '@/assets/vake_logo_small.png';
 
 import { Dialog, DialogClose, DialogContainer, DialogTitle } from '@/components/common/Dialog';
-import {
-  StyledKakaoButton as KakaoButton,
-  StyledKakaoIcon as StyledSendKakaoIcon,
-  StyledKakaoMsg,
-} from './ActionButtons';
+import { StyledKakaoIcon as StyledSendKakaoIcon, StyledKakaoMsg } from './ActionButtons';
 import { StyledBanner } from './Information';
 import InvitationTextarea from './InvitationTextarea';
 
@@ -27,7 +23,10 @@ type Props = {
   onClose: () => void;
 };
 
+export const VAKE_URL = 'https://vake.io' as const;
+
 const KakaoShareDialog = ({ open, onClose }: Props) => {
+  const { locale } = useParams();
   const { t } = useTranslation('shares');
 
   const searchParams = useSearchParams();
@@ -42,10 +41,38 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
     if (!isMessageValid) {
       return;
     }
+    const title = t('sms_share_message', {
+      moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
+    });
     const finalInvitationMessage = message.trim();
-    console.warn('최종 메시지', finalInvitationMessage);
-    // TODO: 카카오 sdk 연결
+
+    try {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title,
+          description: finalInvitationMessage,
+          imageUrl: data?.banner.data.url || '',
+          link: {
+            mobileWebUrl: data?.url,
+            webUrl: data?.url,
+          },
+        },
+        buttons: [
+          {
+            title: t('go_to_action'),
+            link: {
+              mobileWebUrl: data?.url,
+              webUrl: data?.url,
+            },
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('Failed to send Kakao message', error);
+    }
   };
+
   return (
     <Dialog defaultOpen={open}>
       <StyledDialogContainer fullDialog onClickOutSide={onClose}>
@@ -90,7 +117,11 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
           setMessage={setMessage}
           setIsMessageValid={setIsMessageValid}
         />
-        <StyledKakaoButton $isInvalid={!isMessageValid} onClick={handleClickSendButton}>
+        <StyledKakaoButton
+          id="kakaotalk-sharing-btn"
+          $isInvalid={!isMessageValid}
+          onClick={handleClickSendButton}
+        >
           <StyledSendKakaoIcon
             src={isMessageValid ? KakaoIcon.src : InvalidKakaoIcon.src}
             alt="kakao_icon"

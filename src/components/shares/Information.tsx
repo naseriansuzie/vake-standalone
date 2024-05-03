@@ -91,6 +91,8 @@ const StyledSuggestionMsg = styled.p`
 `;
 
 export const StyledBanner = styled(Image)`
+  width: 100% !important;
+  height: auto !important;
   aspect-ratio: 317 / 105;
   border-radius: 10px;
   object-fit: cover;

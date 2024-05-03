@@ -108,6 +108,7 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
             sizes="317px"
             width={318}
             height={105}
+            objectFit="contain"
             quality={30}
             priority
           />
@@ -137,13 +138,13 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
 
 const StyledDialogContainer = styled(DialogContainer)`
   width: calc(100% - 60px) !important;
-  padding: 0 30px;
+  padding: 5px 30px 30px;
 `;
 
 const StyledDialogClose = styled(DialogClose)`
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 15px;
+  right: 30px;
 `;
 
 const StyledDialogTitleWrapper = styled.div`
@@ -201,6 +202,7 @@ const StyledCommunityDescription = styled.div`
 `;
 
 const StyledBannerArea = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -210,7 +212,7 @@ const StyledBannerArea = styled.div`
   background: #fff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   max-width: 500px;
-  padding: 14px 5px 5.5px;
+  padding: 14px 10px 5.5px;
   margin: 30px auto 14.5px;
 
   @media screen and (min-width: 768px) {

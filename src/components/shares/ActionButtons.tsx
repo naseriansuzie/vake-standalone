@@ -123,18 +123,18 @@ export default ActionButtons;
 const StyledActionButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
   padding-bottom: 40px;
   margin: 0 20px;
+  gap: 40px;
 `;
 
 const StyledKakaoButton = styled.button`
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #ffeb3b;
-  border-radius: 30px;
+  justify-content: center;
   padding: 5px 0;
+  border-radius: 30px;
+  background: #ffeb3b;
 `;
 
 export const StyledKakaoIcon = styled(Image)`
@@ -142,28 +142,28 @@ export const StyledKakaoIcon = styled(Image)`
 `;
 
 export const StyledKakaoMsg = styled.p`
+  padding: 15px 0;
   color: #3e2723;
-  text-align: center;
   font-size: 18px;
   font-weight: 700;
-  line-height: normal;
   letter-spacing: -0.9px;
-  padding: 15px 0;
+  line-height: normal;
+  text-align: center;
 `;
 
 const StyledButtons = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 25px;
 `;
 
 const StyledButton = styled.button`
   color: rgba(0, 0, 0, 0.8);
-  text-align: center;
   font-size: 13px;
   font-weight: 300;
   line-height: normal;
+  text-align: center;
 `;
 
 const StyledButtonIcon = styled(Image)`

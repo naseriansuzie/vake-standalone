@@ -149,8 +149,8 @@ const StyledDialogClose = styled(DialogClose)`
 
 const StyledDialogTitleWrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-top: 17px;
 `;
 
@@ -159,61 +159,61 @@ const StyledKakaoIcon = styled(Image)`
 `;
 
 const StyledHeaderTitle = styled.p`
+  margin: 7px 0 5px -2px;
   color: #3e2723;
-  text-align: center;
   font-size: 16px;
   font-weight: 600;
-  line-height: normal;
   letter-spacing: -0.75px;
-  margin: 7px 0 5px -2px;
+  line-height: normal;
+  text-align: center;
 `;
 
 const StyledInfoArea = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-top: 78px;
   margin-bottom: 30px;
 `;
 
 const StyledCommunityIcon = styled(Image)`
   border-radius: 5px;
-  outline: 1px solid #d9d9d9;
   margin-bottom: 8px;
+  outline: 1px solid #d9d9d9;
 `;
 
 const StyledCommunityName = styled.div`
   color: rgba(0, 0, 0, 0.9);
-  text-align: center;
   font-size: 24px;
   font-weight: 700;
-  line-height: 34px;
   letter-spacing: -1.2px;
+  line-height: 34px;
+  text-align: center;
 `;
 
 const StyledCommunityDescription = styled.div`
   color: rgba(0, 0, 0, 0.9);
-  text-align: center;
   font-size: 24px;
   font-weight: 350;
-  line-height: 34px;
   letter-spacing: -1.2px;
+  line-height: 34px;
+  text-align: center;
 `;
 
 const StyledBannerArea = styled.div`
   position: relative;
   display: flex;
+  max-width: 500px;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 13.71px;
+  justify-content: center;
+  padding: 14px 10px 5.5px;
   border-radius: 13px;
+  margin: 30px auto 14.5px;
   background: #fff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  padding: 14px 10px 5.5px;
-  margin: 30px auto 14.5px;
+  gap: 13.71px;
 
   @media screen and (min-width: 768px) {
     padding-bottom: 14px;

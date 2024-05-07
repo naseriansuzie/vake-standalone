@@ -60,27 +60,27 @@ const StyledDialogClose = styled(DialogClose)`
 const StyledTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
   margin-bottom: 8px;
+  gap: 5px;
 `;
 
 const StyledMessage = styled.p`
   color: #4a64ff;
-  text-align: center;
   font-size: 18px;
   font-weight: 700;
-  line-height: normal;
   letter-spacing: -0.9px;
+  line-height: normal;
+  text-align: center;
 `;
 
 const StyledDialogDescription = styled(DialogDescription)`
+  margin-bottom: 6px;
   color: rgba(0, 0, 0, 0.8);
-  text-align: center;
   font-size: 16px;
   font-weight: 500;
-  line-height: normal;
   letter-spacing: -0.8px;
-  margin-bottom: 6px;
+  line-height: normal;
+  text-align: center;
 `;

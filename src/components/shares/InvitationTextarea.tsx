@@ -58,45 +58,43 @@ const StyledTextareaContainer = styled.div`
 `;
 
 const StyledTextarea = styled.textarea`
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   width: 100%;
   height: 110px;
-  border-radius: 15px;
+  box-sizing: border-box;
+  padding: 16px 20px;
   border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  margin: 0 auto 6px;
   background: #fafafa;
   color: rgba(0, 0, 0, 0.9);
   font-size: 16px;
   font-weight: 400;
-  line-height: 22px;
   letter-spacing: -0.75px;
-  padding: 16px 20px;
-  margin: 0 auto 6px;
+  line-height: 22px;
 
   &:focus,
   &:focus-visible,
   &:focus-within,
   &:active {
-    outline: none;
     border: 1px solid #4a64ff;
+    outline: none;
   }
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.3);
     font-size: 16px;
     font-weight: 400;
-    line-height: 22px;
     letter-spacing: -0.75px;
+    line-height: 22px;
   }
 `;
 
 const StyledCounter = styled.div`
   color: #2b2b2b;
-  text-align: right;
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
+  text-align: right;
 
   > span {
     color: #4a64ff;

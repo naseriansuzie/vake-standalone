@@ -51,11 +51,11 @@ const ShareInformation = () => {
 
 const StyledInformation = styled.article`
   position: relative;
+  padding: 36px 18px 18px;
+  border-radius: 23px;
+  margin: 0 20px;
   background: #fff;
   text-align: center;
-  border-radius: 23px;
-  padding: 36px 18px 18px;
-  margin: 0 20px;
 `;
 
 const StyledIcon = styled(Image)`
@@ -77,24 +77,24 @@ const StyledMainMsg = styled.h1`
 `;
 
 const StyledSuggestionMsg = styled.p`
+  margin: 0 45px 24px;
   color: rgba(0, 0, 0, 0.8);
   font-size: 16px;
   font-weight: 300;
   line-height: 24px;
   word-break: keep-all;
-  margin: 0 45px 24px;
 
   @media only screen and (min-width: 768px) {
-    margin-left: 100px;
     margin-right: 100px;
+    margin-left: 100px;
   }
 `;
 
 export const StyledBanner = styled(Image)`
   width: 100% !important;
   height: auto !important;
-  aspect-ratio: 317 / 105;
   border-radius: 10px;
+  aspect-ratio: 317 / 105;
   object-fit: cover;
 `;
 

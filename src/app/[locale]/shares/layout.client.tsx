@@ -32,15 +32,15 @@ const ClientSharesLayout = ({ children }: React.PropsWithChildren) => {
 
 const StyledSharesPage = styled.main`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  background: #f7f7f9;
-  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
   margin: 0 auto;
+  background: #f7f7f9;
 
   @media only screen and (max-device-width: 375px) and (max-device-height: 667px) {
     padding-top: 80px;
@@ -49,9 +49,9 @@ const StyledSharesPage = styled.main`
 
 const StyledContent = styled.section`
   display: flex;
+  max-width: 500px;
   flex-direction: column;
   gap: 95px;
-  max-width: 500px;
 `;
 
 export default ClientSharesLayout;

@@ -115,21 +115,21 @@ const fullContentShow = keyframes`
 const StyledDialogOverlay = styled(DialogPrimitive.Overlay)`
   position: fixed;
   display: grid;
+  animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   background: rgba(0, 0, 0, 0.4);
   inset: 0;
-  animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
 const fullDialogStyle = css`
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
-  transform: none;
+  left: 0;
   width: 100%;
-  place-items: center;
-  overflow-y: auto;
   animation: ${fullContentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  place-items: center;
+  transform: none;
 `;
 
 const StyledDialogContent = styled(DialogPrimitive.Content)<{
@@ -143,7 +143,6 @@ const StyledDialogContent = styled(DialogPrimitive.Content)<{
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: calc(100% - 35px - 35px);
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);

@@ -1,0 +1,20 @@
+{
+  "head_title": "{{moim_name}} 액션 초대하기",
+  "head_description": "{{moim_name}} 액션에 초대합니다.",
+  "invitation_description": "{{moim_name}} 액션에 친구를 초대해 보세요.",
+  "invitation_suggestion": "어떤 역할로 참여할 수 있을지 함께 제안해보는 것도 좋겠죠?",
+  "invite_by_kakao": "카카오톡으로 초대하기",
+  "by_facebook": "페이스북",
+  "by_message": "문자",
+  "by_copy_link": "링크복사",
+  "sms_share_message": "[베이크] {{moim_name}} 액션에 초대합니다!",
+  "placeholder": "초대 메시지를 작성해주세요.",
+  "link_copy_success": "초대링크 복사 완료",
+  "link_copy_success_description": "원하는 곳에 링크를 공유하세요!",
+  "to_invite_action": "액션에 초대합니다!",
+  "default_share_message": "나랑 이 액션 같이 해보지 않을래?",
+  "share_message_placeholder": "초대 메시지를 작성해 보세요!",
+  "word_count": "자",
+  "send_by_kakao": "카카오톡으로 보내기",
+  "go_to_action": "액션 보러 가기"
+}

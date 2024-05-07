@@ -1,8 +1,4 @@
-import createNextIntlPlugin from 'next-intl/plugin';
-
-const withNextIntl = createNextIntlPlugin();
-
-// TODO: 서버 타입에 따라서 env 값 분기
+// TODO: 서버 타입에 따라 배포 셋팅
 // const serverType = process.env.NEXT_PUBLIC_SERVER_TYPE;
 
 /** @type {import('next').NextConfig} */
@@ -13,7 +9,24 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_SERVER_TYPE: process.env.NEXT_PUBLIC_SERVER_TYPE,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    PROVIDER: {
+      KAKAO: {
+        JS_KEY:
+          process.env.NODE_ENV === 'production'
+            ? process.env.KAKAO_JS_KEY
+            : process.env.KAKAO_JS_KEY_TEST,
+      },
+    },
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ca.edge.vg',
+        pathname: '/i/**/**',
+      },
+    ],
   },
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;

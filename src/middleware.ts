@@ -1,14 +1,34 @@
-import createMiddleware from 'next-intl/middleware';
+import { type NextRequest, NextResponse } from 'next/server';
 
-export default createMiddleware({
-  // A list of all locales that are supported
-  locales: ['en', 'ko'],
+import { fallbackLng, locales } from '@/utils/localization/settings';
 
-  // Used when no locale matches
-  defaultLocale: 'ko',
-});
+export default async function middleware(request: NextRequest) {
+  // Check if there is any supported locale in the pathname
+  const pathname = request.nextUrl.pathname;
+
+  const urlSearchParams = new URLSearchParams(request.nextUrl.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const urlParams = urlSearchParams ? `?${new URLSearchParams(params).toString()}` : '';
+
+  const pathnameIsMissingLocale = locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
+  );
+
+  if (pathnameIsMissingLocale) {
+    // We are on the default locale
+    // Rewrite so Next.js understands
+
+    // e.g. incoming request is /shares
+    // it redirects to /ko/shares
+    return NextResponse.redirect(new URL(`/${fallbackLng}${pathname}${urlParams}`, request.url));
+  }
+
+  return NextResponse.next();
+}
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/:path*', '/(ko|en)/:path*'],
+  // Matcher ignoring `/_next/` and `/api/`
+  matcher: [
+    '/((?!api|.*\\..*|_next/static|_next/image|public/|assets|favicon.ico|robots.txt|sitemap.xml|manifest.json).*)',
+  ],
 };

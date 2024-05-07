@@ -15,6 +15,13 @@ export interface FetchOptions {
   params?: Record<string, string | boolean | number | undefined | null>;
 }
 
+export interface Api {
+  delete: typeof deleteJson;
+  get: typeof getJson;
+  post: typeof postJson;
+  put: typeof putJson;
+}
+
 const changeResponseToJson = async <T = Record<string, string>>(response: Response) => {
   return response.json().then((json) => ({
     response,
@@ -75,6 +82,15 @@ const fetchJson = <T>({
     });
 };
 
+export const deleteJson = <T>({ endpoint, body = {}, headers }: FetchOptions): Promise<T> => {
+  return fetchJson<T>({
+    endpoint,
+    method: 'DELETE',
+    headers,
+    body,
+  });
+};
+
 export const getJson = <T>({ endpoint, params, headers }: FetchOptions): Promise<T> => {
   let qs = '';
   const cleanedParams = cleanParams(params);
@@ -89,9 +105,31 @@ export const getJson = <T>({ endpoint, params, headers }: FetchOptions): Promise
   });
 };
 
-const fetchers = {
+export const postJson = <T>({ endpoint, body, headers, cookie }: FetchOptions): Promise<T> => {
+  return fetchJson<T>({
+    endpoint,
+    method: 'POST',
+    headers,
+    cookie,
+    body,
+  });
+};
+
+export const putJson = <T>({ endpoint, body, headers, cookie }: FetchOptions): Promise<T> => {
+  return fetchJson<T>({
+    endpoint,
+    method: 'PUT',
+    headers,
+    cookie,
+    body,
+  });
+};
+
+const fetchers: Api = {
   get: getJson,
-  // TODO: post, delete 추가
+  delete: deleteJson,
+  post: postJson,
+  put: putJson,
 };
 
 export default fetchers;

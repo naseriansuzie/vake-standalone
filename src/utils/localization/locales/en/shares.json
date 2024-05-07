@@ -1,0 +1,20 @@
+{
+  "head_title": "Invite {{moim_name}} action",
+  "head_description": "Invite you to {{moim_name}} action",
+  "invitation_description": "Kindly Invite People to {{moim_name}}",
+  "invitation_suggestion": "Let them know what roles they can participate in.",
+  "invite_by_kakao": "Invite by Kakao",
+  "by_facebook": "Facebook",
+  "by_message": "Message",
+  "by_copy_link": "Copy Link",
+  "sms_share_message": "[VAKE] I invite you to the {{moim_name}} action!",
+  "placeholder": "Please write your invitation.",
+  "link_copy_success": "Link copied successfully",
+  "link_copy_success_description": "Share the link whenever you want!",
+  "to_invite_action": "I invite you here!",
+  "default_share_message": "Would you join this action?",
+  "share_message_placeholder": "Write an invitation message!",
+  "word_count": "",
+  "send_by_kakao": "Send by Kakao",
+  "go_to_action": "Go to action"
+}

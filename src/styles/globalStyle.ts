@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    font-family: AppleSDGothicNeo, "Apple SD Gothic Neo", Roboto, sans-serif;
+    font-family:"Noto Sans KR", AppleSDGothicNeo, "Apple SD Gothic Neo", Roboto, sans-serif;
   }
 
   html, body, div, span, h1, h2, h3, h4, h5, h6, p,

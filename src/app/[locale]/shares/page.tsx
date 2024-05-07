@@ -57,6 +57,12 @@ export async function generateMetadata({
           ),
           apple: favicon?.ios?.map((icon) => parseFaviconItem(icon)) || [],
         },
+        viewport: { width: 'device-width', initialScale: 1 },
+        appleWebApp: {
+          capable: true,
+          title: t('head_title', { moim_name: name }),
+          statusBarStyle: 'black-translucent',
+        },
       };
     }
 

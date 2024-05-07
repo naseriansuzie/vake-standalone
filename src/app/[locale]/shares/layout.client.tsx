@@ -39,6 +39,7 @@ const StyledSharesPage = styled.main`
   height: calc(var(--vh, 1vh) * 100);
   background: #f7f7f9;
   overflow: hidden;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
   margin: 0 auto;
 
   @media only screen and (max-device-width: 375px) and (max-device-height: 667px) {

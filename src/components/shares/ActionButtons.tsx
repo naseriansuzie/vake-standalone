@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import useCommunityShares from '@/queries/useCommunityShares';
 
-import detectMobileDevice from '@/helpers/detectMobileDevice';
+import detectMobileDevice from '@/utils/detectMobileDevice';
 import { useTranslation } from '@/utils/localization/client';
 import useCopyToClipboard from '@/utils/useCopyClipboard';
 

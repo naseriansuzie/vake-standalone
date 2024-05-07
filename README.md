@@ -27,7 +27,6 @@
   ┃   ┗ 📜 page
   ┣ 📂 assets
   ┣ 📂 components
-  ┣ 📂 helpers
   ┣ 📂 queries
   ┣ 📂 styles
   ┗ 📂 types

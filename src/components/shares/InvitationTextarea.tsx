@@ -54,7 +54,7 @@ const InvitationTextarea = ({ message, setMessage, setIsMessageValid }: Props) =
 
 const StyledTextareaContainer = styled.div`
   max-width: 500px;
-  margin: 0 auto 109px;
+  margin: 0 auto 80px;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -67,7 +67,7 @@ const StyledTextarea = styled.textarea`
   border: 1px solid #d9d9d9;
   background: #fafafa;
   color: rgba(0, 0, 0, 0.9);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 22px;
   letter-spacing: -0.75px;
@@ -84,7 +84,7 @@ const StyledTextarea = styled.textarea`
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.3);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 22px;
     letter-spacing: -0.75px;

@@ -161,7 +161,7 @@ const StyledKakaoIcon = styled(Image)`
 const StyledHeaderTitle = styled.p`
   color: #3e2723;
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   line-height: normal;
   letter-spacing: -0.75px;

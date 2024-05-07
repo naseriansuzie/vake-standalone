@@ -70,7 +70,7 @@ const StyledMsgContainer = styled.div`
 
 const StyledMainMsg = styled.h1`
   color: #4a64ff;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 24px;
   word-break: keep-all;
@@ -78,7 +78,7 @@ const StyledMainMsg = styled.h1`
 
 const StyledSuggestionMsg = styled.p`
   color: rgba(0, 0, 0, 0.8);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 24px;
   word-break: keep-all;

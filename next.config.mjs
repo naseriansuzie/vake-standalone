@@ -10,9 +10,6 @@ const nextConfig = {
     NEXT_PUBLIC_SERVER_TYPE: process.env.NEXT_PUBLIC_SERVER_TYPE,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     PROVIDER: {
-      FACEBOOK: {
-        CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
-      },
       KAKAO: {
         JS_KEY:
           process.env.NODE_ENV === 'production'

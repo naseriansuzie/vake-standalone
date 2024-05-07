@@ -40,6 +40,10 @@ const StyledSharesPage = styled.main`
   background: #f7f7f9;
   overflow: hidden;
   margin: 0 auto;
+
+  @media only screen and (max-device-width: 375px) and (max-device-height: 667px) {
+    padding-top: 80px;
+  }
 `;
 
 const StyledContent = styled.section`

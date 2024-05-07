@@ -124,6 +124,7 @@ const StyledActionButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
+  padding-bottom: 40px;
   margin: 0 20px;
 `;
 

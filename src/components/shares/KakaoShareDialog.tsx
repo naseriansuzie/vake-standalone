@@ -143,7 +143,7 @@ const StyledDialogContainer = styled(DialogContainer)`
 
 const StyledDialogClose = styled(DialogClose)`
   position: absolute;
-  top: 15px;
+  top: 30px;
   right: 30px;
 `;
 
@@ -151,7 +151,7 @@ const StyledDialogTitleWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 7px;
+  margin-top: 17px;
 `;
 
 const StyledKakaoIcon = styled(Image)`

@@ -16,7 +16,7 @@ const defaultMetadata: Metadata = {
   description: '액션에 초대합니다',
 };
 
-export const viewPort: Viewport = {
+export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
 };

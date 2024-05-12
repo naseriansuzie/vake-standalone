@@ -36,15 +36,7 @@ const ShareInformation = () => {
         </StyledMainMsg>
         <StyledSuggestionMsg>{t('invitation_suggestion')}</StyledSuggestionMsg>
       </StyledMsgContainer>
-      <StyledBanner
-        src={data?.banner?.data.url || ''}
-        alt={`${data?.name} banner`}
-        sizes="317px"
-        width={317}
-        height={105}
-        quality={30}
-        priority
-      />
+      <StyledBanner src={data?.banner?.data.url || ''} alt={`${data?.name} banner`} />
     </StyledInformation>
   );
 };
@@ -90,7 +82,7 @@ const StyledSuggestionMsg = styled.p`
   }
 `;
 
-export const StyledBanner = styled(Image)`
+export const StyledBanner = styled.img`
   width: 100% !important;
   height: auto !important;
   border-radius: 10px;

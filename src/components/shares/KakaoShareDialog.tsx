@@ -15,7 +15,7 @@ import SmallVakeLogo from '@/assets/vake_logo_small.png';
 
 import { Dialog, DialogClose, DialogContainer, DialogTitle } from '@/components/common/Dialog';
 import { StyledKakaoIcon as StyledSendKakaoIcon, StyledKakaoMsg } from './ActionButtons';
-import { StyledBanner } from './Information';
+import { StyledBanner as Banner } from './Information';
 import InvitationTextarea from './InvitationTextarea';
 
 type Props = {
@@ -102,16 +102,7 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
 
         <StyledBannerArea>
           <Image src={SmallVakeLogo.src} alt="vake_logo" width={80} height={26.29} />
-          <StyledBanner
-            src={data?.banner.data.url || ''}
-            alt={`${data?.name} banner`}
-            sizes="317px"
-            width={318}
-            height={105}
-            objectFit="contain"
-            quality={30}
-            priority
-          />
+          <StyledBanner src={data?.banner.data.url || ''} alt={`${data?.name} banner`} />
         </StyledBannerArea>
         <InvitationTextarea
           message={message}
@@ -218,6 +209,10 @@ const StyledBannerArea = styled.div`
   @media screen and (min-width: 768px) {
     padding-bottom: 14px;
   }
+`;
+
+const StyledBanner = styled(Banner)`
+  object-fit: contain;
 `;
 
 const StyledKakaoButton = styled.button<{ $isInvalid: boolean }>`

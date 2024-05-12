@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { getCommunityShares } from '@/api/shares';
@@ -14,6 +14,11 @@ import type { FaviconItem } from '@/types/shares';
 const defaultMetadata: Metadata = {
   title: '액션 초대하기 | Vake',
   description: '액션에 초대합니다',
+};
+
+export const viewPort: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export async function generateMetadata({
@@ -57,7 +62,6 @@ export async function generateMetadata({
           ),
           apple: favicon?.ios?.map((icon) => parseFaviconItem(icon)) || [],
         },
-        viewport: { width: 'device-width', initialScale: 1 },
         appleWebApp: {
           capable: true,
           title: t('head_title', { moim_name: name }),

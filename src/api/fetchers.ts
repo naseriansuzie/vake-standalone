@@ -55,11 +55,20 @@ const fetchJson = <T>({
   body,
   endpoint,
   headers: extraHeaders,
+  cookie,
   method = 'GET',
 }: FetchOptions): Promise<T> => {
   const headers: { [headerName: string]: string } = {
     accept: 'application/json',
   };
+
+  if (method !== 'GET') {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  if (cookie) {
+    headers['Cookie'] = cookie;
+  }
 
   if (extraHeaders) {
     Object.assign(headers, extraHeaders);

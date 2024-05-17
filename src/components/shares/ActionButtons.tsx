@@ -25,9 +25,10 @@ const ActionButtons = () => {
 
   const { push } = useRouter();
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('id');
+  const communityId = searchParams.get('communityid');
+  const ticket = searchParams.get('ticket');
 
-  const { data } = useCommunityShares(communityId);
+  const { data } = useCommunityShares(communityId, ticket);
   const [, copyToClipboard] = useCopyToClipboard();
 
   const [openShareCompleted, setOpenShareCompleted] = useState(false);

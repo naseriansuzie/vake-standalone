@@ -17,14 +17,14 @@ const ShareInformation = () => {
   const { t } = useTranslation('shares');
 
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('id');
+  const communityId = searchParams.get('communityid');
+  const ticket = searchParams.get('ticket');
 
-  const { data } = useCommunityShares(communityId);
+  const { data } = useCommunityShares(communityId, ticket);
 
-  if (data && data.locale !== locale) {
-    redirect(`/${data.locale}/shares${communityId ? `?id=${communityId}` : ''}`);
+  if (data?.locale && !data.locale.toLocaleLowerCase().includes(locale)) {
+    redirect(`/${data.locale}/shares${communityId ? `?communityid=${communityId}` : ''}`);
   }
-
   return (
     <StyledInformation>
       <StyledIcon src={MessageIcon.src} alt="share icon" width={50} height={50} />

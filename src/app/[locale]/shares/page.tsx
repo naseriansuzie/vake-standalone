@@ -28,11 +28,17 @@ export async function generateMetadata({
   params: { locale: LocaleTypes };
   searchParams: Record<string, string>;
 }): Promise<Metadata> {
-  const communityId = searchParams?.id;
+  const communityId = searchParams?.communityid;
+  const ticket = searchParams?.ticket;
 
   try {
     if (communityId) {
-      const { name, locale: pickedLocale, favicon, banner } = await getCommunityShares(communityId);
+      const {
+        name,
+        locale: pickedLocale,
+        favicon,
+        banner,
+      } = await getCommunityShares(communityId, ticket);
       const { t } = await createTranslation((pickedLocale as LocaleTypes) || locale, 'shares');
 
       const parseFaviconItem = (item: FaviconItem | null) => {
@@ -78,14 +84,15 @@ export async function generateMetadata({
 }
 
 export default async function Shares({ searchParams }: { searchParams: Record<string, string> }) {
-  const communityId = searchParams?.id;
+  const communityId = searchParams?.communityid;
+  const ticket = searchParams?.ticket;
 
   const queryClient = new QueryClient();
 
-  if (communityId) {
+  if (communityId && ticket) {
     await queryClient.prefetchQuery({
-      queryKey: [communityId],
-      queryFn: async () => getCommunityShares(communityId),
+      queryKey: [communityId, ticket],
+      queryFn: async () => getCommunityShares(communityId, ticket),
     });
   }
 

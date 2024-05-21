@@ -10,6 +10,7 @@ import { useTranslation } from '@/utils/localization/client';
 
 import DefaultBannerImage from '@/assets/default_share_banner.png';
 import Close from '@/assets/icons/close.png';
+import MessageIcon from '@/assets/icons/share_icon.png';
 import KakaoIcon from '@/assets/icons/kakao.png';
 import InvalidKakaoIcon from '@/assets/icons/kakao_invalid.png';
 import SmallVakeLogo from '@/assets/icons/vake_logo_small.png';
@@ -91,7 +92,7 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
         <StyledInfoArea>
           <div>
             <StyledCommunityIcon
-              src={data?.icon?.data.url || DefaultBannerImage.src}
+              src={data?.icon?.data.url || MessageIcon.src}
               alt={`${data?.name || ''} 아이콘`}
               width={30}
               height={30}
@@ -104,7 +105,10 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
 
         <StyledBannerArea>
           <Image src={SmallVakeLogo.src} alt="vake_logo" width={80} height={26.29} />
-          <StyledBanner src={data?.banner.data.url || ''} alt={`${data?.name} banner`} />
+          <StyledBanner
+            src={data?.banner.data.url || DefaultBannerImage.src}
+            alt={`${data?.name || ''} banner`}
+          />
         </StyledBannerArea>
         <InvitationTextarea
           message={message}

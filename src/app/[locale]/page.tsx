@@ -10,9 +10,7 @@ export default function Page() {
           <span style={additionalTextStyle}>초대기능이 오픈됩니다</span>
         </div>
       </div>
-      <div>
-        home
-      </div>
+      <div>home</div>
     </div>
   );
 }
@@ -54,4 +52,3 @@ const additionalTextStyle: CSSProperties = {
   color: 'white',
   fontSize: '1.5em',
 };
-

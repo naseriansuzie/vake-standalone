@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import { useTranslation } from '@/utils/localization/client';
 
-import Close from '@/assets/close.png';
-import PrimaryCheckIcon from '@/assets/primary_check.png';
+import Close from '@/assets/icons/close.png';
+import PrimaryCheckIcon from '@/assets/icons/primary_check.png';
 
 import {
   Dialog,

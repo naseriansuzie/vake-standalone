@@ -8,7 +8,8 @@ import useCommunityShares from '@/queries/useCommunityShares';
 
 import { useTranslation } from '@/utils/localization/client';
 
-import MessageIcon from '@/assets/share_icon.png';
+import DefaultBannerImage from '@/assets/default_share_banner.png';
+import MessageIcon from '@/assets/icons/share_icon.png';
 
 import type { LocaleTypes } from '@/utils/localization/settings';
 
@@ -36,7 +37,10 @@ const ShareInformation = () => {
         </StyledMainMsg>
         <StyledSuggestionMsg>{t('invitation_suggestion')}</StyledSuggestionMsg>
       </StyledMsgContainer>
-      <StyledBanner src={data?.banner?.data.url || ''} alt={`${data?.name} banner`} />
+      <StyledBanner
+        src={data?.banner?.data.url || DefaultBannerImage.src}
+        alt={`${data?.name || ''} banner`}
+      />
     </StyledInformation>
   );
 };
@@ -46,7 +50,7 @@ const StyledInformation = styled.article`
   padding: 36px 18px 18px;
   border-radius: 23px;
   margin: 0 20px;
-  background: #fff;
+  background: #ffffff;
   text-align: center;
 `;
 

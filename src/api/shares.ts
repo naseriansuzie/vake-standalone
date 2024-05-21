@@ -1,4 +1,4 @@
-import fetchers from './fetchers';
+import fetchers from './model/fetchers';
 
 import type { GetCommunityShareInformation } from '@/types/shares';
 

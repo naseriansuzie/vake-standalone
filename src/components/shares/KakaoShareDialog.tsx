@@ -8,10 +8,11 @@ import useCommunityShares from '@/queries/useCommunityShares';
 
 import { useTranslation } from '@/utils/localization/client';
 
-import Close from '@/assets/close.png';
-import KakaoIcon from '@/assets/kakao.png';
-import InvalidKakaoIcon from '@/assets/kakao_invalid.png';
-import SmallVakeLogo from '@/assets/vake_logo_small.png';
+import DefaultBannerImage from '@/assets/default_share_banner.png';
+import Close from '@/assets/icons/close.png';
+import KakaoIcon from '@/assets/icons/kakao.png';
+import InvalidKakaoIcon from '@/assets/icons/kakao_invalid.png';
+import SmallVakeLogo from '@/assets/icons/vake_logo_small.png';
 
 import { Dialog, DialogClose, DialogContainer, DialogTitle } from '@/components/common/Dialog';
 import { StyledKakaoIcon as StyledSendKakaoIcon, StyledKakaoMsg } from './ActionButtons';
@@ -90,8 +91,8 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
         <StyledInfoArea>
           <div>
             <StyledCommunityIcon
-              src={data?.icon?.data.url || ''}
-              alt={`${data?.name} 아이콘`}
+              src={data?.icon?.data.url || DefaultBannerImage.src}
+              alt={`${data?.name || ''} 아이콘`}
               width={30}
               height={30}
               objectFit="cover"
@@ -203,7 +204,7 @@ const StyledBannerArea = styled.div`
   padding: 14px 10px 5.5px;
   border-radius: 13px;
   margin: 30px auto 14.5px;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   gap: 13.71px;
 
@@ -217,20 +218,20 @@ const StyledBanner = styled(Banner)`
 `;
 
 const StyledKakaoButton = styled.button<{ $isInvalid: boolean }>`
+  display: flex;
   width: 100%;
   max-width: 500px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  background: #ffeb3b;
-  border-radius: 30px;
+  justify-content: center;
   padding: 5px 0;
+  border-radius: 30px;
   margin: 0 auto;
+  background: #ffeb3b;
 
   ${({ $isInvalid }) =>
     $isInvalid &&
     css`
-      background: #eee;
+      background: #eeeeee;
 
       > p {
         color: rgba(0, 0, 0, 0.3);

@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from '@/styles/globalStyle';
-import StyledComponentsRegistry from '@/styles/Registry';
+import StyledComponentsRegistry from '@/styles/registry';
 import theme from '@/styles/theme';
 
 const Providers = ({ children }: React.PropsWithChildren) => {

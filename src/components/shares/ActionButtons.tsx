@@ -11,10 +11,10 @@ import detectMobileDevice from '@/utils/detectMobileDevice';
 import { useTranslation } from '@/utils/localization/client';
 import useCopyToClipboard from '@/utils/useCopyClipboard';
 
-import FacebookIcon from '@/assets/facebook.png';
-import KakaoIcon from '@/assets/kakao.png';
-import MessageIcon from '@/assets/message.png';
-import LinkIcon from '@/assets/link.png';
+import FacebookIcon from '@/assets/icons/facebook.png';
+import KakaoIcon from '@/assets/icons/kakao.png';
+import MessageIcon from '@/assets/icons/message.png';
+import LinkIcon from '@/assets/icons/link.png';
 
 import ShareCompletedDialog from '@/components/shares/ShareCompletedDialog';
 import KakaoShareDialog, { VAKE_URL } from '@/components/shares/KakaoShareDialog';

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { useRouter, useParams, useSearchParams } from 'next/navigation';
-import styled from 'styled-components';
+import { useParams, useSearchParams } from 'next/navigation';
+import styled, { css } from 'styled-components';
 
 import useCommunityShares from '@/queries/useCommunityShares';
 
@@ -23,23 +23,35 @@ const ActionButtons = () => {
   const { locale } = useParams();
   const { t } = useTranslation('shares');
 
-  const { push } = useRouter();
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('communityid');
-  const ticket = searchParams.get('ticket');
+  const currentCommunityId = searchParams.get('current_community_id') || '';
+  const ticket = searchParams.get('ticket') || '';
+  const baseCommunityId = searchParams.get('communityid') || '';
 
-  const { data } = useCommunityShares(communityId, ticket);
+  const { data } = useCommunityShares({
+    currentCommunityId,
+    baseCommunityId,
+    ticket,
+  });
   const [, copyToClipboard] = useCopyToClipboard();
 
   const [openShareCompleted, setOpenShareCompleted] = useState(false);
   const [openKakaoShare, setOpenKakaoShare] = useState(false);
+  const [messageHref, setMessageHref] = useState('');
 
-  const buttons: {
-    type: 'facebook' | 'message' | 'link';
-    icon: StaticImageData;
-    title: string;
-    handleClickButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  }[] = [
+  const items: (
+    | {
+        type: 'facebook' | 'link';
+        icon: StaticImageData;
+        title: string;
+        handleClickButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
+      }
+    | {
+        type: 'message';
+        icon: StaticImageData;
+        title: string;
+      }
+  )[] = [
     {
       type: 'facebook',
       icon: FacebookIcon,
@@ -57,22 +69,6 @@ const ActionButtons = () => {
       type: 'message',
       icon: MessageIcon,
       title: t('by_message'),
-      handleClickButton: () => {
-        const shareMessage = `${t('sms_share_message', {
-          moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
-        })} ${data?.url || VAKE_URL}`;
-
-        if (detectMobileDevice() === 'ios') {
-          push(`sms:&body=${shareMessage}`);
-          return;
-        }
-        if (detectMobileDevice() === 'android') {
-          push(`sms:?body=${shareMessage}`);
-          return;
-        }
-
-        push(`sms:?body=${shareMessage}`);
-      },
     },
     {
       type: 'link',
@@ -97,6 +93,18 @@ const ActionButtons = () => {
     setOpenShareCompleted(false);
   };
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const shareMessage = `${t('sms_share_message', {
+        moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
+      })} ${data?.url || VAKE_URL}`;
+
+      setMessageHref(
+        detectMobileDevice() === 'ios' ? `sms:&body=${shareMessage}` : `sms:?body=${shareMessage}`,
+      );
+    }
+  }, [data?.name, data?.url, locale]);
+
   return (
     <StyledActionButtonContainer>
       <StyledKakaoButton onClick={handleClickKakao}>
@@ -104,12 +112,22 @@ const ActionButtons = () => {
         <StyledKakaoMsg>{t('invite_by_kakao')}</StyledKakaoMsg>
       </StyledKakaoButton>
       <StyledButtons>
-        {buttons.map((button) => (
-          <StyledButton key={button.title} onClick={button.handleClickButton}>
-            <StyledButtonIcon src={button.icon.src} alt={button.title} width={50} height={50} />
-            <p>{button.title}</p>
-          </StyledButton>
-        ))}
+        {items.map((item) => {
+          if (item.type === 'message') {
+            return (
+              <StyledAnchor key={item.title} href={messageHref}>
+                <StyledButtonIcon src={item.icon.src} alt={item.title} width={50} height={50} />
+                <p>{item.title}</p>
+              </StyledAnchor>
+            );
+          }
+          return (
+            <StyledButton key={item.title} onClick={item.handleClickButton}>
+              <StyledButtonIcon src={item.icon.src} alt={item.title} width={50} height={50} />
+              <p>{item.title}</p>
+            </StyledButton>
+          );
+        })}
       </StyledButtons>
       {openKakaoShare && <KakaoShareDialog open={openKakaoShare} onClose={handleCloseKakaoShare} />}
       {openShareCompleted && (
@@ -159,12 +177,21 @@ const StyledButtons = styled.div`
   gap: 25px;
 `;
 
-const StyledButton = styled.button`
+const iconStyle = css`
   color: rgba(0, 0, 0, 0.8);
   font-size: 13px;
   font-weight: 300;
   line-height: normal;
   text-align: center;
+`;
+
+const StyledButton = styled.button`
+  ${iconStyle}
+`;
+
+const StyledAnchor = styled.a`
+  display: inline-block;
+  ${iconStyle}
 `;
 
 const StyledButtonIcon = styled(Image)`

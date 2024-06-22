@@ -8,14 +8,16 @@ import useCommunityShares from '@/queries/useCommunityShares';
 
 import { useTranslation } from '@/utils/localization/client';
 
-import Close from '@/assets/close.png';
-import KakaoIcon from '@/assets/kakao.png';
-import InvalidKakaoIcon from '@/assets/kakao_invalid.png';
-import SmallVakeLogo from '@/assets/vake_logo_small.png';
+import DefaultBannerImage from '@/assets/default_share_banner.png';
+import Close from '@/assets/icons/close.png';
+import MessageIcon from '@/assets/icons/share_icon.png';
+import KakaoIcon from '@/assets/icons/kakao.png';
+import InvalidKakaoIcon from '@/assets/icons/kakao_invalid.png';
+import SmallVakeLogo from '@/assets/icons/vake_logo_small.png';
 
 import { Dialog, DialogClose, DialogContainer, DialogTitle } from '@/components/common/Dialog';
 import { StyledKakaoIcon as StyledSendKakaoIcon, StyledKakaoMsg } from './ActionButtons';
-import { StyledBanner } from './Information';
+import { StyledBanner as Banner } from './Information';
 import InvitationTextarea from './InvitationTextarea';
 
 type Props = {
@@ -30,9 +32,11 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
   const { t } = useTranslation('shares');
 
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('id');
+  const currentCommunityId = searchParams.get('current_community_id') || '';
+  const ticket = searchParams.get('ticket') || '';
+  const baseCommunityId = searchParams.get('communityid') || '';
 
-  const { data } = useCommunityShares(communityId);
+  const { data } = useCommunityShares({ currentCommunityId, baseCommunityId, ticket });
 
   const [message, setMessage] = useState(t('default_share_message'));
   const [isMessageValid, setIsMessageValid] = useState(true);
@@ -89,8 +93,8 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
         <StyledInfoArea>
           <div>
             <StyledCommunityIcon
-              src={data?.icon?.data.url || ''}
-              alt={`${data?.name} 아이콘`}
+              src={data?.icon?.data.url || MessageIcon.src}
+              alt={`${data?.name || ''} 아이콘`}
               width={30}
               height={30}
               objectFit="cover"
@@ -103,14 +107,8 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
         <StyledBannerArea>
           <Image src={SmallVakeLogo.src} alt="vake_logo" width={80} height={26.29} />
           <StyledBanner
-            src={data?.banner.data.url || ''}
-            alt={`${data?.name} banner`}
-            sizes="317px"
-            width={318}
-            height={105}
-            objectFit="contain"
-            quality={30}
-            priority
+            src={data?.banner.data.url || DefaultBannerImage.src}
+            alt={`${data?.name || ''} banner`}
           />
         </StyledBannerArea>
         <InvitationTextarea
@@ -211,7 +209,7 @@ const StyledBannerArea = styled.div`
   padding: 14px 10px 5.5px;
   border-radius: 13px;
   margin: 30px auto 14.5px;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   gap: 13.71px;
 
@@ -220,21 +218,25 @@ const StyledBannerArea = styled.div`
   }
 `;
 
+const StyledBanner = styled(Banner)`
+  object-fit: contain;
+`;
+
 const StyledKakaoButton = styled.button<{ $isInvalid: boolean }>`
+  display: flex;
   width: 100%;
   max-width: 500px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  background: #ffeb3b;
-  border-radius: 30px;
+  justify-content: center;
   padding: 5px 0;
+  border-radius: 30px;
   margin: 0 auto;
+  background: #ffeb3b;
 
   ${({ $isInvalid }) =>
     $isInvalid &&
     css`
-      background: #eee;
+      background: #eeeeee;
 
       > p {
         color: rgba(0, 0, 0, 0.3);

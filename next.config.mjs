@@ -1,5 +1,4 @@
-// TODO: 서버 타입에 따라 배포 셋팅
-// const serverType = process.env.NEXT_PUBLIC_SERVER_TYPE;
+const serverType = process.env.NEXT_PUBLIC_SERVER_TYPE;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -9,20 +8,17 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_SERVER_TYPE: process.env.NEXT_PUBLIC_SERVER_TYPE,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    PROVIDER: {
-      KAKAO: {
-        JS_KEY:
-          process.env.NODE_ENV === 'production'
-            ? process.env.KAKAO_JS_KEY
-            : process.env.KAKAO_JS_KEY_TEST,
-      },
-    },
+    NEXT_PUBLIC_KAKAO_JS_KEY:
+      process.env.NODE_ENV === 'production'
+        ? process.env.KAKAO_JS_KEY
+        : process.env.KAKAO_JS_KEY_TEST,
+    PLUGIN_APP_ID: process.env.PLUGIN_APP_ID,
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'ca.edge.vg',
+        hostname: serverType === 'dev' ? 'ca.edge.vg' : 'ca.group-edge.net',
         pathname: '/i/**/**',
       },
     ],

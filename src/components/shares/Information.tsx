@@ -8,7 +8,8 @@ import useCommunityShares from '@/queries/useCommunityShares';
 
 import { useTranslation } from '@/utils/localization/client';
 
-import MessageIcon from '@/assets/share_icon.png';
+import DefaultBannerImage from '@/assets/default_share_banner.png';
+import MessageIcon from '@/assets/icons/share_icon.png';
 
 import type { LocaleTypes } from '@/utils/localization/settings';
 
@@ -17,14 +18,16 @@ const ShareInformation = () => {
   const { t } = useTranslation('shares');
 
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('id');
+  const currentCommunityId = searchParams.get('current_community_id') || '';
+  const ticket = searchParams.get('ticket') || '';
+  const baseCommunityId = searchParams.get('communityid') || '';
 
-  const { data } = useCommunityShares(communityId);
+  const { data } = useCommunityShares({ currentCommunityId, baseCommunityId, ticket });
 
-  if (data && data.locale !== locale) {
-    redirect(`/${data.locale}/shares${communityId ? `?id=${communityId}` : ''}`);
+  if (data?.locale && !data.locale.toLocaleLowerCase().includes(locale)) {
+    const searchParamsString = searchParams.toString();
+    redirect(`/${data.locale}/shares${searchParamsString ? `?${searchParamsString}` : ''}`);
   }
-
   return (
     <StyledInformation>
       <StyledIcon src={MessageIcon.src} alt="share icon" width={50} height={50} />
@@ -37,13 +40,8 @@ const ShareInformation = () => {
         <StyledSuggestionMsg>{t('invitation_suggestion')}</StyledSuggestionMsg>
       </StyledMsgContainer>
       <StyledBanner
-        src={data?.banner?.data.url || ''}
-        alt={`${data?.name} banner`}
-        sizes="317px"
-        width={317}
-        height={105}
-        quality={30}
-        priority
+        src={data?.banner?.data.url || DefaultBannerImage.src}
+        alt={`${data?.name || ''} banner`}
       />
     </StyledInformation>
   );
@@ -54,7 +52,7 @@ const StyledInformation = styled.article`
   padding: 36px 18px 18px;
   border-radius: 23px;
   margin: 0 20px;
-  background: #fff;
+  background: #ffffff;
   text-align: center;
 `;
 
@@ -90,7 +88,7 @@ const StyledSuggestionMsg = styled.p`
   }
 `;
 
-export const StyledBanner = styled(Image)`
+export const StyledBanner = styled.img`
   width: 100% !important;
   height: auto !important;
   border-radius: 10px;

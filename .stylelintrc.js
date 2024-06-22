@@ -17,17 +17,15 @@ module.exports = {
       },
     ],
     'block-no-empty': null,
-    'color-hex-case': 'upper',
-    'declaration-colon-newline-after': null,
+    'color-hex-length': 'long',
     'function-name-case': null,
-    'number-leading-zero': 'always',
     'property-no-unknown': [
       true,
       {
         ignoreProperties: ['label', '/^user-/'],
       },
     ],
-    'value-list-comma-newline-after': null,
     'value-keyword-case': null,
+    'no-missing-end-of-source-newline': null,
   },
 };

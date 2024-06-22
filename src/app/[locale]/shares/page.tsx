@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { getCommunityShares } from '@/api/shares';
@@ -16,6 +16,11 @@ const defaultMetadata: Metadata = {
   description: '액션에 초대합니다',
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export async function generateMetadata({
   params: { locale },
   searchParams,
@@ -23,11 +28,18 @@ export async function generateMetadata({
   params: { locale: LocaleTypes };
   searchParams: Record<string, string>;
 }): Promise<Metadata> {
-  const communityId = searchParams?.id;
+  const currentCommunityId = searchParams?.current_community_id;
+  const ticket = searchParams?.ticket;
+  const baseCommunityId = searchParams?.communityid;
 
   try {
-    if (communityId) {
-      const { name, locale: pickedLocale, favicon, banner } = await getCommunityShares(communityId);
+    if (currentCommunityId) {
+      const {
+        name,
+        locale: pickedLocale,
+        favicon,
+        banner,
+      } = await getCommunityShares({ currentCommunityId, baseCommunityId, ticket });
       const { t } = await createTranslation((pickedLocale as LocaleTypes) || locale, 'shares');
 
       const parseFaviconItem = (item: FaviconItem | null) => {
@@ -57,7 +69,6 @@ export async function generateMetadata({
           ),
           apple: favicon?.ios?.map((icon) => parseFaviconItem(icon)) || [],
         },
-        viewport: { width: 'device-width', initialScale: 1 },
         appleWebApp: {
           capable: true,
           title: t('head_title', { moim_name: name }),
@@ -74,14 +85,16 @@ export async function generateMetadata({
 }
 
 export default async function Shares({ searchParams }: { searchParams: Record<string, string> }) {
-  const communityId = searchParams?.id;
+  const currentCommunityId = searchParams?.current_community_id;
+  const ticket = searchParams?.ticket;
+  const baseCommunityId = searchParams?.communityid;
 
   const queryClient = new QueryClient();
 
-  if (communityId) {
+  if (currentCommunityId && baseCommunityId && ticket) {
     await queryClient.prefetchQuery({
-      queryKey: [communityId],
-      queryFn: async () => getCommunityShares(communityId),
+      queryKey: [currentCommunityId, ticket],
+      queryFn: async () => getCommunityShares({ currentCommunityId, baseCommunityId, ticket }),
     });
   }
 

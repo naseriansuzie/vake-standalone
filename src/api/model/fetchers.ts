@@ -13,6 +13,7 @@ export interface FetchOptions {
   headers?: { [headerName: string]: string } | null;
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   params?: Record<string, string | boolean | number | undefined | null>;
+  signal?: AbortSignal;
 }
 
 export interface Api {
@@ -55,11 +56,21 @@ const fetchJson = <T>({
   body,
   endpoint,
   headers: extraHeaders,
+  cookie,
   method = 'GET',
+  signal,
 }: FetchOptions): Promise<T> => {
   const headers: { [headerName: string]: string } = {
     accept: 'application/json',
   };
+
+  if (method !== 'GET') {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  if (cookie) {
+    headers['Cookie'] = cookie;
+  }
 
   if (extraHeaders) {
     Object.assign(headers, extraHeaders);
@@ -69,6 +80,7 @@ const fetchJson = <T>({
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
+    signal,
   })
     .then(changeResponseToJson)
     .then(({ response, json }) => {
@@ -91,7 +103,7 @@ export const deleteJson = <T>({ endpoint, body = {}, headers }: FetchOptions): P
   });
 };
 
-export const getJson = <T>({ endpoint, params, headers }: FetchOptions): Promise<T> => {
+export const getJson = <T>({ endpoint, params, headers, signal }: FetchOptions): Promise<T> => {
   let qs = '';
   const cleanedParams = cleanParams(params);
 
@@ -102,6 +114,7 @@ export const getJson = <T>({ endpoint, params, headers }: FetchOptions): Promise
   return fetchJson<T>({
     endpoint: `${endpoint}${qs}`,
     headers,
+    signal,
   });
 };
 

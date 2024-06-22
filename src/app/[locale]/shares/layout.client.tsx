@@ -42,7 +42,7 @@ const StyledSharesPage = styled.main`
   margin: 0 auto;
   background: #f7f7f9;
 
-  @media only screen and (max-device-width: 375px) and (max-device-height: 667px) {
+  @media only screen and (max-device-width: 375px) and (max-device-height: 812px) {
     padding-top: 80px;
   }
 `;

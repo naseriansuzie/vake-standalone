@@ -5,7 +5,7 @@ import Script from 'next/script';
 const KakaoScript = () => {
   const handleReady = () => {
     if (typeof window.Kakao === 'undefined') return;
-    window.Kakao.init(process.env.PROVIDER.KAKAO.JS_KEY);
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
   };
 
   return (

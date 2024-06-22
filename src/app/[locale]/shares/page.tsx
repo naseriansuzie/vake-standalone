@@ -28,17 +28,18 @@ export async function generateMetadata({
   params: { locale: LocaleTypes };
   searchParams: Record<string, string>;
 }): Promise<Metadata> {
-  const communityId = searchParams?.communityid;
+  const currentCommunityId = searchParams?.current_community_id;
   const ticket = searchParams?.ticket;
+  const baseCommunityId = searchParams?.communityid;
 
   try {
-    if (communityId) {
+    if (currentCommunityId) {
       const {
         name,
         locale: pickedLocale,
         favicon,
         banner,
-      } = await getCommunityShares(communityId, ticket);
+      } = await getCommunityShares({ currentCommunityId, baseCommunityId, ticket });
       const { t } = await createTranslation((pickedLocale as LocaleTypes) || locale, 'shares');
 
       const parseFaviconItem = (item: FaviconItem | null) => {
@@ -84,15 +85,16 @@ export async function generateMetadata({
 }
 
 export default async function Shares({ searchParams }: { searchParams: Record<string, string> }) {
-  const communityId = searchParams?.communityid;
+  const currentCommunityId = searchParams?.current_community_id;
   const ticket = searchParams?.ticket;
+  const baseCommunityId = searchParams?.communityid;
 
   const queryClient = new QueryClient();
 
-  if (communityId && ticket) {
+  if (currentCommunityId && baseCommunityId && ticket) {
     await queryClient.prefetchQuery({
-      queryKey: [communityId, ticket],
-      queryFn: async () => getCommunityShares(communityId, ticket),
+      queryKey: [currentCommunityId, ticket],
+      queryFn: async () => getCommunityShares({ currentCommunityId, baseCommunityId, ticket }),
     });
   }
 

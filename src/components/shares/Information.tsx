@@ -18,13 +18,15 @@ const ShareInformation = () => {
   const { t } = useTranslation('shares');
 
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('communityid');
-  const ticket = searchParams.get('ticket');
+  const currentCommunityId = searchParams.get('current_community_id') || '';
+  const ticket = searchParams.get('ticket') || '';
+  const baseCommunityId = searchParams.get('communityid') || '';
 
-  const { data } = useCommunityShares(communityId, ticket);
+  const { data } = useCommunityShares({ currentCommunityId, baseCommunityId, ticket });
 
   if (data?.locale && !data.locale.toLocaleLowerCase().includes(locale)) {
-    redirect(`/${data.locale}/shares${communityId ? `?communityid=${communityId}` : ''}`);
+    const searchParamsString = searchParams.toString();
+    redirect(`/${data.locale}/shares${searchParamsString ? `?${searchParamsString}` : ''}`);
   }
   return (
     <StyledInformation>

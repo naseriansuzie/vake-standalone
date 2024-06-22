@@ -32,10 +32,11 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
   const { t } = useTranslation('shares');
 
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('communityid');
-  const ticket = searchParams.get('ticket');
+  const currentCommunityId = searchParams.get('current_community_id') || '';
+  const ticket = searchParams.get('ticket') || '';
+  const baseCommunityId = searchParams.get('communityid') || '';
 
-  const { data } = useCommunityShares(communityId, ticket);
+  const { data } = useCommunityShares({ currentCommunityId, baseCommunityId, ticket });
 
   const [message, setMessage] = useState(t('default_share_message'));
   const [isMessageValid, setIsMessageValid] = useState(true);

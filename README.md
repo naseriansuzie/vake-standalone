@@ -32,4 +32,8 @@
   ┗ 📂 types
 ```
 
+### 🎞️ Demo
+- [shares page demo](https://github.com/naseriansuzie/vake-standalone/assets/53066365/ae44b49e-b9ce-4768-a97f-75c196ebf9b8)
+
+
 ---

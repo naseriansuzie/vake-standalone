@@ -1,3 +1,4 @@
+import '@/app/globals.css';
 import { noto_sans_kr } from '@/app/fonts';
 import Providers from '@/app/providers';
 
@@ -21,7 +22,7 @@ export default async function RootLayout(props: {
   const { children } = props;
 
   return (
-    <html lang={locale} className={noto_sans_kr.className}>
+    <html lang={locale} className={`${noto_sans_kr.variable} ${noto_sans_kr.className}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

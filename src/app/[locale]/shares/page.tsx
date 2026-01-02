@@ -21,13 +21,15 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export async function generateMetadata({
-  params: { locale },
-  searchParams,
-}: {
-  params: { locale: LocaleTypes };
-  searchParams: Record<string, string>;
+export async function generateMetadata(props: {
+  params: Promise<{ locale: LocaleTypes }>;
+  searchParams: Promise<Record<string, string>>;
 }): Promise<Metadata> {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+  const { locale } = params;
+
   const currentCommunityId = searchParams?.current_community_id;
   const ticket = searchParams?.ticket;
   const baseCommunityId = searchParams?.communityid;
@@ -84,7 +86,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function Shares({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function Shares(props: { searchParams: Promise<Record<string, string>> }) {
+  const searchParams = await props.searchParams;
   const currentCommunityId = searchParams?.current_community_id;
   const ticket = searchParams?.ticket;
   const baseCommunityId = searchParams?.communityid;

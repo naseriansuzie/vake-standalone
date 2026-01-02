@@ -11,13 +11,16 @@ declare global {
   }
 }
 
-export default function RootLayout({
-  params,
-  children,
-}: Readonly<{
-  params: { locale: LocaleTypes };
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout(
+  props: Readonly<{
+    params: { locale: LocaleTypes };
+    children: React.ReactNode;
+  }>,
+) {
+  const params = await props.params;
+
+  const { children } = props;
+
   return (
     <html lang={params.locale} className={noto_sans_kr.className}>
       <body>

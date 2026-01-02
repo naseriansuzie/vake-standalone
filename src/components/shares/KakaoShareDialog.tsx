@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useParams, useSearchParams } from 'next/navigation';
-import styled, { css } from 'styled-components';
 
 import useCommunityShares from '@/queries/useCommunityShares';
 
@@ -15,9 +14,14 @@ import KakaoIcon from '@/assets/icons/kakao.png';
 import InvalidKakaoIcon from '@/assets/icons/kakao_invalid.png';
 import SmallVakeLogo from '@/assets/icons/vake_logo_small.png';
 
-import { Dialog, DialogClose, DialogContainer, DialogTitle } from '@/components/common/Dialog';
-import { StyledKakaoIcon as StyledSendKakaoIcon, StyledKakaoMsg } from './ActionButtons';
-import { StyledBanner as Banner } from './Information';
+import {
+  Dialog,
+  DialogClose,
+  DialogContainer,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/common/Dialog';
+import { KakaoIconWrapper, KakaoMsg } from './ActionButtons';
 import InvitationTextarea from './InvitationTextarea';
 
 type Props = {
@@ -79,169 +83,82 @@ const KakaoShareDialog = ({ open, onClose }: Props) => {
 
   return (
     <Dialog defaultOpen={open}>
-      <StyledDialogContainer fullDialog onClickOutSide={onClose}>
-        <StyledDialogClose asChild onClick={onClose}>
+      <DialogContainer
+        fullDialog
+        onClickOutSide={onClose}
+        className="w-[calc(100%-60px)] p-[5px_30px_30px]"
+      >
+        <DialogClose className="absolute top-[30px] right-[30px]" asChild onClick={onClose}>
           <Image src={Close.src} alt="close" width={16} height={16} />
-        </StyledDialogClose>
+        </DialogClose>
         <DialogTitle asChild>
-          <StyledDialogTitleWrapper>
-            <StyledKakaoIcon src={KakaoIcon.src} alt="kakao_icon" width={19.38} height={17.76} />
-            <StyledHeaderTitle>{t('invite_by_kakao')}</StyledHeaderTitle>
-          </StyledDialogTitleWrapper>
+          <div className="mt-[17px] flex items-center justify-center">
+            <Image
+              src={KakaoIcon.src}
+              alt="kakao_icon"
+              width={19.38}
+              height={17.76}
+              className="m-[7.5px_5.81px_5.74px_5.81px]"
+            />
+            <p className="my-[7px_0_5px] -ml-[2px] text-center text-base leading-normal font-semibold tracking-[-0.75px] text-[#3e2723]">
+              {t('invite_by_kakao')}
+            </p>
+          </div>
         </DialogTitle>
+        <DialogDescription className="sr-only">{t('to_invite_action')}</DialogDescription>
 
-        <StyledInfoArea>
+        <div className="mt-[78px] mb-[30px] flex flex-col items-center justify-center">
           <div>
-            <StyledCommunityIcon
+            <Image
               src={data?.icon?.data.url || MessageIcon.src}
               alt={`${data?.name || ''} 아이콘`}
               width={30}
               height={30}
-              objectFit="cover"
+              className="mb-2 rounded-[5px] outline outline-[#d9d9d9]"
+              style={{ objectFit: 'cover' }}
             />
           </div>
-          <StyledCommunityName>{data?.name}</StyledCommunityName>
-          <StyledCommunityDescription>{t('to_invite_action')}</StyledCommunityDescription>
-        </StyledInfoArea>
+          <div className="text-center text-2xl leading-[34px] font-bold tracking-[-1.2px] text-[rgba(0,0,0,0.9)]">
+            {data?.name}
+          </div>
+          <div className="text-center text-2xl leading-[34px] font-[350] tracking-[-1.2px] text-[rgba(0,0,0,0.9)]">
+            {t('to_invite_action')}
+          </div>
+        </div>
 
-        <StyledBannerArea>
+        <div className="relative m-[30px_auto_14.5px] flex max-w-[500px] flex-col items-center justify-center gap-[13.71px] rounded-[13px] bg-white p-[14px_10px_5.5px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)] md:pb-[14px]">
           <Image src={SmallVakeLogo.src} alt="vake_logo" width={80} height={26.29} />
-          <StyledBanner
+          <img
             src={data?.banner.data.url || DefaultBannerImage.src}
             alt={`${data?.name || ''} banner`}
+            className="aspect-317/105 h-auto w-full rounded-[10px] object-contain"
           />
-        </StyledBannerArea>
+        </div>
         <InvitationTextarea
           message={message}
           setMessage={setMessage}
           setIsMessageValid={setIsMessageValid}
         />
-        <StyledKakaoButton
+        <button
           id="kakaotalk-sharing-btn"
-          $isInvalid={!isMessageValid}
+          className={`mx-auto flex w-full max-w-[500px] items-center justify-center rounded-[30px] py-[5px] ${
+            isMessageValid ? 'bg-[#ffeb3b]' : 'bg-[#eeeeee]'
+          }`}
           onClick={handleClickSendButton}
         >
-          <StyledSendKakaoIcon
+          <KakaoIconWrapper
             src={isMessageValid ? KakaoIcon.src : InvalidKakaoIcon.src}
             alt="kakao_icon"
             width={31.25}
             height={28.64}
           />
-          <StyledKakaoMsg>{t('send_by_kakao')}</StyledKakaoMsg>
-        </StyledKakaoButton>
-      </StyledDialogContainer>
+          <KakaoMsg className={!isMessageValid ? 'text-[rgba(0,0,0,0.3)]' : ''}>
+            {t('send_by_kakao')}
+          </KakaoMsg>
+        </button>
+      </DialogContainer>
     </Dialog>
   );
 };
-
-const StyledDialogContainer = styled(DialogContainer)`
-  width: calc(100% - 60px) !important;
-  padding: 5px 30px 30px;
-`;
-
-const StyledDialogClose = styled(DialogClose)`
-  position: absolute;
-  top: 30px;
-  right: 30px;
-`;
-
-const StyledDialogTitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 17px;
-`;
-
-const StyledKakaoIcon = styled(Image)`
-  padding: 7.5px 5.81px 5.74px 5.81px;
-`;
-
-const StyledHeaderTitle = styled.p`
-  margin: 7px 0 5px -2px;
-  color: #3e2723;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.75px;
-  line-height: normal;
-  text-align: center;
-`;
-
-const StyledInfoArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 78px;
-  margin-bottom: 30px;
-`;
-
-const StyledCommunityIcon = styled(Image)`
-  border-radius: 5px;
-  margin-bottom: 8px;
-  outline: 1px solid #d9d9d9;
-`;
-
-const StyledCommunityName = styled.div`
-  color: rgba(0, 0, 0, 0.9);
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -1.2px;
-  line-height: 34px;
-  text-align: center;
-`;
-
-const StyledCommunityDescription = styled.div`
-  color: rgba(0, 0, 0, 0.9);
-  font-size: 24px;
-  font-weight: 350;
-  letter-spacing: -1.2px;
-  line-height: 34px;
-  text-align: center;
-`;
-
-const StyledBannerArea = styled.div`
-  position: relative;
-  display: flex;
-  max-width: 500px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 10px 5.5px;
-  border-radius: 13px;
-  margin: 30px auto 14.5px;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-  gap: 13.71px;
-
-  @media screen and (min-width: 768px) {
-    padding-bottom: 14px;
-  }
-`;
-
-const StyledBanner = styled(Banner)`
-  object-fit: contain;
-`;
-
-const StyledKakaoButton = styled.button<{ $isInvalid: boolean }>`
-  display: flex;
-  width: 100%;
-  max-width: 500px;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 0;
-  border-radius: 30px;
-  margin: 0 auto;
-  background: #ffeb3b;
-
-  ${({ $isInvalid }) =>
-    $isInvalid &&
-    css`
-      background: #eeeeee;
-
-      > p {
-        color: rgba(0, 0, 0, 0.3);
-      }
-    `}
-`;
 
 export default KakaoShareDialog;

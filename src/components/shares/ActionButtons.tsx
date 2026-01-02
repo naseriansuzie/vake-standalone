@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { useParams, useSearchParams } from 'next/navigation';
-import styled, { css } from 'styled-components';
 
 import useCommunityShares from '@/queries/useCommunityShares';
 
@@ -106,94 +105,89 @@ const ActionButtons = () => {
   }, [data?.name, data?.url, locale]);
 
   return (
-    <StyledActionButtonContainer>
-      <StyledKakaoButton onClick={handleClickKakao}>
-        <StyledKakaoIcon src={KakaoIcon.src} alt="kakao_icon" width={31.25} height={28.64} />
-        <StyledKakaoMsg>{t('invite_by_kakao')}</StyledKakaoMsg>
-      </StyledKakaoButton>
-      <StyledButtons>
+    <div className="mx-5 flex flex-col gap-10 pb-10">
+      <button
+        className="flex items-center justify-center rounded-[30px] bg-[#ffeb3b] py-[5px]"
+        onClick={handleClickKakao}
+      >
+        <KakaoIconWrapper src={KakaoIcon.src} alt="kakao_icon" width={31.25} height={28.64} />
+        <KakaoMsg>{t('invite_by_kakao')}</KakaoMsg>
+      </button>
+      <div className="flex items-center justify-center gap-[25px]">
         {items.map((item) => {
           if (item.type === 'message') {
             return (
-              <StyledAnchor key={item.title} href={messageHref}>
-                <StyledButtonIcon src={item.icon.src} alt={item.title} width={50} height={50} />
+              <a
+                key={item.title}
+                href={messageHref}
+                className="inline-block text-center text-[13px] leading-normal font-light text-[rgba(0,0,0,0.8)]"
+              >
+                <Image
+                  src={item.icon.src}
+                  alt={item.title}
+                  width={50}
+                  height={50}
+                  className="mb-2"
+                />
                 <p>{item.title}</p>
-              </StyledAnchor>
+              </a>
             );
           }
           return (
-            <StyledButton key={item.title} onClick={item.handleClickButton}>
-              <StyledButtonIcon src={item.icon.src} alt={item.title} width={50} height={50} />
+            <button
+              key={item.title}
+              onClick={item.handleClickButton}
+              className="text-center text-[13px] leading-normal font-light text-[rgba(0,0,0,0.8)]"
+            >
+              <Image src={item.icon.src} alt={item.title} width={50} height={50} className="mb-2" />
               <p>{item.title}</p>
-            </StyledButton>
+            </button>
           );
         })}
-      </StyledButtons>
+      </div>
       {openKakaoShare && <KakaoShareDialog open={openKakaoShare} onClose={handleCloseKakaoShare} />}
       {openShareCompleted && (
         <ShareCompletedDialog open={openShareCompleted} onClose={handleCloseShareCompleted} />
       )}
-    </StyledActionButtonContainer>
+    </div>
   );
 };
 
 export default ActionButtons;
 
-const StyledActionButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 40px;
-  margin: 0 20px;
-  gap: 40px;
-`;
+// Exported for KakaoShareDialog
+export const KakaoIconWrapper = ({
+  src,
+  alt,
+  width,
+  height,
+  className = '',
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  className?: string;
+}) => (
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    className={`m-[12.1px_9.37px_9.26px] ${className}`}
+  />
+);
 
-const StyledKakaoButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 0;
-  border-radius: 30px;
-  background: #ffeb3b;
-`;
-
-export const StyledKakaoIcon = styled(Image)`
-  padding: 12.1px 9.37px 9.26px;
-`;
-
-export const StyledKakaoMsg = styled.p`
-  padding: 15px 0;
-  color: #3e2723;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.9px;
-  line-height: normal;
-  text-align: center;
-`;
-
-const StyledButtons = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-`;
-
-const iconStyle = css`
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 13px;
-  font-weight: 300;
-  line-height: normal;
-  text-align: center;
-`;
-
-const StyledButton = styled.button`
-  ${iconStyle}
-`;
-
-const StyledAnchor = styled.a`
-  display: inline-block;
-  ${iconStyle}
-`;
-
-const StyledButtonIcon = styled(Image)`
-  margin-bottom: 8px;
-`;
+export const KakaoMsg = ({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <p
+    className={`py-[15px] text-center text-lg leading-normal font-bold tracking-[-0.9px] text-[#3e2723] ${className}`}
+  >
+    {children}
+  </p>
+);

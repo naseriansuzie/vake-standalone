@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import styled from 'styled-components';
 
 import { useTranslation } from '@/utils/localization/client';
 
@@ -26,61 +25,26 @@ const ShareCompletedDialog = ({ open, onClose }: Props) => {
 
   return (
     <Dialog defaultOpen={open}>
-      <StyledDialogContent onClickOutSide={onClose}>
-        <StyledDialogClose asChild onClick={onClose}>
+      <DialogContainer className="max-w-[500px] p-[18px]" onClickOutSide={onClose}>
+        <DialogClose className="absolute top-4 right-4" asChild onClick={onClose}>
           <Image src={Close.src} alt={t('close', { ns: 'common' })} width={13} height={13} />
-        </StyledDialogClose>
+        </DialogClose>
         <DialogTitle asChild>
-          <StyledTitleWrapper>
+          <div className="flex flex-col items-center justify-center mb-2 gap-[5px]">
             <div>
               <Image src={PrimaryCheckIcon.src} alt="check_icon" width={28} height={28} />
             </div>
-            <StyledMessage>{t('link_copy_success')}</StyledMessage>
-          </StyledTitleWrapper>
+            <p className="text-[#4a64ff] font-bold text-lg leading-normal text-center tracking-[-0.9px]">
+              {t('link_copy_success')}
+            </p>
+          </div>
         </DialogTitle>
-        <StyledDialogDescription>{t('link_copy_success_description')}</StyledDialogDescription>
-      </StyledDialogContent>
+        <DialogDescription className="mb-[6px] text-[rgba(0,0,0,0.8)] text-base font-medium leading-normal text-center tracking-[-0.8px]">
+          {t('link_copy_success_description')}
+        </DialogDescription>
+      </DialogContainer>
     </Dialog>
   );
 };
 
 export default ShareCompletedDialog;
-
-const StyledDialogContent = styled(DialogContainer)`
-  max-width: 500px;
-  padding: 18px;
-`;
-
-const StyledDialogClose = styled(DialogClose)`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-`;
-
-const StyledTitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-  gap: 5px;
-`;
-
-const StyledMessage = styled.p`
-  color: #4a64ff;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.9px;
-  line-height: normal;
-  text-align: center;
-`;
-
-const StyledDialogDescription = styled(DialogDescription)`
-  margin-bottom: 6px;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: -0.8px;
-  line-height: normal;
-  text-align: center;
-`;

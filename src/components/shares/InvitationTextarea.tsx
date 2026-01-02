@@ -1,7 +1,6 @@
 'use client';
 
 import type { Dispatch, SetStateAction } from 'react';
-import styled from 'styled-components';
 
 import { useTranslation } from '@/utils/localization/client';
 
@@ -34,71 +33,24 @@ const InvitationTextarea = ({ message, setMessage, setIsMessageValid }: Props) =
   };
 
   return (
-    <StyledTextareaContainer>
-      <StyledTextarea
+    <div className="mx-auto mb-20 max-w-[500px]">
+      <textarea
+        id="invitation-message"
+        className="mx-auto mb-[6px] box-border h-[110px] w-full min-w-[calc(100vw-60px)] rounded-[15px] border border-[#d9d9d9] bg-[#fafafa] px-5 py-4 text-base leading-[22px] font-normal tracking-[-0.75px] text-[rgba(0,0,0,0.9)] placeholder:text-base placeholder:leading-[22px] placeholder:font-normal placeholder:tracking-[-0.75px] placeholder:text-[rgba(0,0,0,0.3)] focus-within:border-[#4a64ff] focus:border-[#4a64ff] focus:outline-none focus-visible:border-[#4a64ff] active:border-[#4a64ff]"
         placeholder={t('share_message_placeholder')}
         value={message}
         onChange={handleChange}
       />
-      <StyledCounter>
-        <span>
+      <div className="text-right text-xs leading-normal font-normal text-[#2b2b2b]">
+        <span className="text-[#4a64ff]">
           {message.length}
           {t('word_count')}
         </span>
         /{MAX_MESSAGE_LENGTH}
         {t('word_count')}
-      </StyledCounter>
-    </StyledTextareaContainer>
+      </div>
+    </div>
   );
 };
-
-const StyledTextareaContainer = styled.div`
-  max-width: 500px;
-  margin: 0 auto 80px;
-`;
-
-const StyledTextarea = styled.textarea`
-  width: 100%;
-  height: 110px;
-  box-sizing: border-box;
-  padding: 16px 20px;
-  border: 1px solid #d9d9d9;
-  border-radius: 15px;
-  margin: 0 auto 6px;
-  background: #fafafa;
-  color: rgba(0, 0, 0, 0.9);
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: -0.75px;
-  line-height: 22px;
-
-  &:focus,
-  &:focus-visible,
-  &:focus-within,
-  &:active {
-    border: 1px solid #4a64ff;
-    outline: none;
-  }
-
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: -0.75px;
-    line-height: 22px;
-  }
-`;
-
-const StyledCounter = styled.div`
-  color: #2b2b2b;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: normal;
-  text-align: right;
-
-  > span {
-    color: #4a64ff;
-  }
-`;
 
 export default InvitationTextarea;

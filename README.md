@@ -9,7 +9,7 @@
 
 ### 🛠 Stack
 
-- Typescript, NextJS, Styled-component, React-i18next
+- Typescript(v5), NextJS(v16), React(v19), Tailwind(v4), React-i18next(v23)
 - This App is built in Next.js App Router.
 
 ### 🗂️ Project Structure

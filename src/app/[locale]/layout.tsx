@@ -1,3 +1,4 @@
+import '@/app/globals.css';
 import { noto_sans_kr } from '@/app/fonts';
 import Providers from '@/app/providers';
 

@@ -4,7 +4,7 @@
 
 - node: `nvm use`
 - create `.env.local` file at root referring to `.env.example`
-- run the development server using `yarn dev`
+- run the development server using `pnpm dev`
 - then Open http://localhost:3000
 
 ### 🛠 Stack

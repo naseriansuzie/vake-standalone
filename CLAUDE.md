@@ -12,7 +12,7 @@ VAKE-STANDALONE is a Next.js App Router application for community sharing featur
 
 ```bash
 nvm use                    # Switch to Node.js 24.12.0
-yarn install               # Install dependencies
+pnpm install               # Install dependencies
 ```
 
 Create `.env.local` at project root based on `.env.example`:
@@ -26,16 +26,16 @@ Create `.env.local` at project root based on `.env.example`:
 ### Running the App
 
 ```bash
-yarn dev                   # Start dev server at http://localhost:3000
-yarn build                 # Build for production
-yarn start                 # Start production server
+pnpm dev                   # Start dev server at http://localhost:3000
+pnpm build                 # Build for production
+pnpm start                 # Start production server
 ```
 
 ### Code Quality
 
 ```bash
-yarn lint                  # Run ESLint
-yarn type-check            # Run TypeScript compiler check
+pnpm lint                  # Run ESLint
+pnpm type-check            # Run TypeScript compiler check
 ```
 
 ## Architecture
@@ -99,6 +99,10 @@ TypeScript configured with `@/*` alias mapping to `src/*`
 - Image optimization via Next.js `remotePatterns` (changes based on `NEXT_PUBLIC_SERVER_TYPE`)
 - Kakao JavaScript key switches based on `NODE_ENV`
 - TypeScript configured with `moduleResolution: "bundler"` for Next.js 16 + Turbopack compatibility
+
+### Dependency Overrides
+
+- `minimatch >=10.2.1`: `eslint-config-next`의 sub-plugin들(`eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`)이 minimatch 3.x(ReDoS 취약)를 간접 의존. `eslint-config-next`가 ESLint 10을 지원하기 전까지 `pnpm.overrides`로 강제 업그레이드.
 
 ## Key Patterns
 

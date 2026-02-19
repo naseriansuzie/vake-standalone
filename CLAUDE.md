@@ -100,6 +100,10 @@ TypeScript configured with `@/*` alias mapping to `src/*`
 - Kakao JavaScript key switches based on `NODE_ENV`
 - TypeScript configured with `moduleResolution: "bundler"` for Next.js 16 + Turbopack compatibility
 
+### Dependency Overrides
+
+- `minimatch >=10.2.1`: `eslint-config-next`의 sub-plugin들(`eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`)이 minimatch 3.x(ReDoS 취약)를 간접 의존. `eslint-config-next`가 ESLint 10을 지원하기 전까지 `pnpm.overrides`로 강제 업그레이드.
+
 ## Key Patterns
 
 ### Plugin API Headers

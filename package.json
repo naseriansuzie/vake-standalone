@@ -8,12 +8,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "prepare": "husky"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*.{ts,tsx,json,css,md}": "prettier --write"
   },
   "engines": {
     "node": ">=24.13.1"

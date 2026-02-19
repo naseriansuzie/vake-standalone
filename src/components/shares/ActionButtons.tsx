@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { useParams, useSearchParams } from 'next/navigation';
 
@@ -36,7 +36,17 @@ const ActionButtons = () => {
 
   const [openShareCompleted, setOpenShareCompleted] = useState(false);
   const [openKakaoShare, setOpenKakaoShare] = useState(false);
-  const [messageHref, setMessageHref] = useState('');
+  const messageHref = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+
+    const shareMessage = `${t('sms_share_message', {
+      moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
+    })} ${data?.url || VAKE_URL}`;
+
+    return detectMobileDevice() === 'ios'
+      ? `sms:&body=${shareMessage}`
+      : `sms:?body=${shareMessage}`;
+  }, [t, data?.name, data?.url, locale]);
 
   const items: (
     | {
@@ -91,18 +101,6 @@ const ActionButtons = () => {
   const handleCloseShareCompleted = () => {
     setOpenShareCompleted(false);
   };
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const shareMessage = `${t('sms_share_message', {
-        moim_name: data?.name || (locale !== 'ko' ? 'Your Action' : ''),
-      })} ${data?.url || VAKE_URL}`;
-
-      setMessageHref(
-        detectMobileDevice() === 'ios' ? `sms:&body=${shareMessage}` : `sms:?body=${shareMessage}`,
-      );
-    }
-  }, [data?.name, data?.url, locale]);
 
   return (
     <div className="mx-5 flex flex-col gap-10 pb-10">

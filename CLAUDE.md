@@ -12,7 +12,7 @@ VAKE-STANDALONE is a Next.js App Router application for community sharing featur
 
 ```bash
 nvm use                    # Switch to Node.js 24.12.0
-yarn install               # Install dependencies
+pnpm install               # Install dependencies
 ```
 
 Create `.env.local` at project root based on `.env.example`:
@@ -26,16 +26,16 @@ Create `.env.local` at project root based on `.env.example`:
 ### Running the App
 
 ```bash
-yarn dev                   # Start dev server at http://localhost:3000
-yarn build                 # Build for production
-yarn start                 # Start production server
+pnpm dev                   # Start dev server at http://localhost:3000
+pnpm build                 # Build for production
+pnpm start                 # Start production server
 ```
 
 ### Code Quality
 
 ```bash
-yarn lint                  # Run ESLint
-yarn type-check            # Run TypeScript compiler check
+pnpm lint                  # Run ESLint
+pnpm type-check            # Run TypeScript compiler check
 ```
 
 ## Architecture

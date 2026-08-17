@@ -103,6 +103,7 @@ TypeScript configured with `@/*` alias mapping to `src/*`
 ### Dependency Overrides
 
 - `minimatch >=10.2.1`: `eslint-config-next`의 sub-plugin들(`eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`)이 minimatch 3.x(ReDoS 취약)를 간접 의존. `eslint-config-next`가 ESLint 10을 지원하기 전까지 `pnpm.overrides`로 강제 업그레이드.
+- `nanoid ^3.3.18`: `postcss`가 nanoid를 간접 의존하는데 3.3.17에 무한루프 취약점(GHSA-2v37-7h3g-55p8, `customAlphabet`/`customRandom` size=0). postcss는 nanoid 3.x API에 묶여 있어 major 상향(6.x) 대신 3.3.x 패치 라인(3.3.18)으로 핀.
 
 ## Key Patterns
 

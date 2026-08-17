@@ -68,6 +68,7 @@
       "@types/react": "19.0.8",
       "@types/react-dom": "19.0.3",
       "minimatch": ">=10.2.1",
+      "nanoid": "^3.3.18",
       "postcss": ">=8.5.18"
     }
   },

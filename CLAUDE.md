@@ -104,6 +104,10 @@ TypeScript configured with `@/*` alias mapping to `src/*`
 
 - `minimatch >=10.2.1`: `eslint-config-next`의 sub-plugin들(`eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`)이 minimatch 3.x(ReDoS 취약)를 간접 의존. `eslint-config-next`가 ESLint 10을 지원하기 전까지 `pnpm.overrides`로 강제 업그레이드.
 - `nanoid ^3.3.18`: `postcss`가 nanoid를 간접 의존하는데 3.3.17에 무한루프 취약점(GHSA-2v37-7h3g-55p8, `customAlphabet`/`customRandom` size=0). postcss는 nanoid 3.x API에 묶여 있어 major 상향(6.x) 대신 3.3.x 패치 라인(3.3.18)으로 핀.
+- `brace-expansion >=5.0.7`: `eslint` → `minimatch`가 간접 의존하는데 5.0.7 미만에 DoS 취약점(GHSA-3jxr-9vmj-r5cp, 연속 `{}` 그룹 지수 시간 전개). 부모 체인이 패치 버전을 내주기 전까지 override로 강제.
+- `@babel/core ^7.29.6`: `next`(styled-jsx)와 `eslint-config-next`가 간접 의존하는데 7.29.0 이하에 sourceMappingURL 통한 임의 파일 읽기(GHSA-4x5r-pxfx-6jf8). 부모가 7.x에 묶여 있어 8.x 이탈을 막기 위해 7.29.x 패치 라인으로 핀.
+
+sharp 취약점(GHSA-f88m-g3jw-g9cj)은 별도 override 없이 `next`를 16.3.x로 상향해 해결한다 — `next@16.3.0`부터 sharp를 `^0.35.3`(패치 버전)로 요구하기 때문.
 
 ## Key Patterns
 
